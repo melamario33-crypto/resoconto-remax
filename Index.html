@@ -211,7 +211,7 @@ function makeReport(){
   };
   if(!data.nome||!data.via){alert('Inserisci almeno il nome e l\'indirizzo della proprietà.');return;}
 
-  const base='https://little-cell-f209.melamario33.workers.dev';
+  const base='https://melamario33-crypto.github.io/resoconto-remax';
   const link=base+'?p='+encode(data);
   const settLabel=data.settimana?'Settimana '+data.settimana:'';
   const waText=encodeURIComponent('🏠 Resoconto settimanale per '+data.nome+(settLabel?' – '+settLabel:'')+'\n\nBuongiorno! Ecco il resoconto aggiornato della sua proprietà:\n👉 '+link+'\n\nSono disponibile per qualsiasi domanda.\nMario Mela – RE/MAX Aequitas');
