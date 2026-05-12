@@ -153,11 +153,6 @@ function renderAdmin() {
     '<div class="r3"><div class="fg"><label>Prezzo (euro)</label><input id="f-prezzo" placeholder="es. 280000"></div><div class="fg"><label>Giorni sul mercato</label><input type="number" id="f-giorni" placeholder="es. 45"></div><div class="fg"><label>Settimana</label><input id="f-settimana" placeholder="es. 5-11 Maggio"></div></div>' +
     '<div class="r2"><div class="fg"><label>Superficie (mq)</label><input type="number" id="f-mq" placeholder="es. 85"></div><div class="fg"><label>Prezzo medio zona (euro/mq)</label><input type="number" id="f-mediamq" placeholder="es. 2100"></div></div>' +
     '</div>' +
-    '<div class="card"><div class="ctitle">Attivita Settimana</div>' +
-    '<div class="r3"><div class="fg"><label>Visite effettuate</label><input type="number" id="f-visite" placeholder="0"></div><div class="fg"><label>Richieste info</label><input type="number" id="f-richieste" placeholder="0"></div><div class="fg"><label>Visite prossima sett.</label><input type="number" id="f-prossime" placeholder="0"></div></div>' +
-    '<div class="r3"><div class="fg"><label>Visualizzazioni</label><input type="number" id="f-views" placeholder="0"></div><div class="fg"><label>Offerte ricevute</label><input type="number" id="f-offerte" placeholder="0"></div><div class="fg"><label>Interesse generale</label><select id="f-interesse"><option value="Alto">Alto</option><option value="Medio" selected>Medio</option><option value="Basso">Basso</option></select></div></div>' +
-    '<div class="r1"><div class="fg"><label>Trend visite rispetto settimana scorsa</label><select id="f-trend"><option value="crescita">In crescita</option><option value="stabile" selected>Stabile</option><option value="calo">In calo</option></select></div></div>' +
-    '</div>' +
     '<div class="card"><div class="ctitle">Lavoro Svolto questa settimana</div>' +
     '<div class="chk-grid" id="chk-grid">' +
     '<label class="chk-item" onclick="toggleChk(this)"><input type="checkbox" value="Portali aggiornati"><span>Portali aggiornati</span></label>' +
@@ -170,6 +165,11 @@ function renderAdmin() {
     '<label class="chk-item" onclick="toggleChk(this)"><input type="checkbox" value="Collaborazione con altri agenti"><span>Collaborazione con altri agenti</span></label>' +
     '</div>' +
     '<div class="r1"><div class="fg"><label>Note aggiuntive sul lavoro svolto</label><textarea id="f-lavoro-note" placeholder="es. Ho contattato 3 potenziali acquirenti, aggiornato il prezzo sui portali..."></textarea></div></div>' +
+    '</div>' +
+    '<div class="card"><div class="ctitle">Attività Settimana</div>' +
+    '<div class="r3"><div class="fg"><label>Visite effettuate</label><input type="number" id="f-visite" placeholder="0"></div><div class="fg"><label>Richieste info</label><input type="number" id="f-richieste" placeholder="0"></div><div class="fg"><label>Visite prossima sett.</label><input type="number" id="f-prossime" placeholder="0"></div></div>' +
+    '<div class="r3"><div class="fg"><label>Visualizzazioni</label><input type="number" id="f-views" placeholder="0"></div><div class="fg"><label>Offerte ricevute</label><input type="number" id="f-offerte" placeholder="0"></div><div class="fg"><label>Interesse generale</label><select id="f-interesse"><option value="Alto">Alto</option><option value="Medio" selected>Medio</option><option value="Basso">Basso</option></select></div></div>' +
+    '<div class="r1"><div class="fg"><label>Trend visite rispetto settimana scorsa</label><select id="f-trend"><option value="crescita">In crescita</option><option value="stabile" selected>Stabile</option><option value="calo">In calo</option></select></div></div>' +
     '</div>' +
     '<div class="card"><div class="ctitle">Feedback e Note</div>' +
     '<div class="r1"><div class="fg"><label>Commenti visitatori</label><textarea id="f-commenti" placeholder="es. Apprezzano la luminosita..."></textarea></div></div>' +
