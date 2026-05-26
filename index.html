@@ -75,7 +75,7 @@ body{font-family:'Open Sans',sans-serif;background:var(--light);color:var(--text
 .slbl{font-family:Montserrat,sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:.75rem;display:flex;align-items:center;gap:8px}
 .slbl::after{content:'';flex:1;height:1px;background:var(--border)}
 .agcard{background:var(--blue);border-radius:12px;padding:1.25rem;display:flex;align-items:center;gap:1rem;margin-bottom:1.25rem}
-.ag-logo{width:52px;height:52px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;font-family:Montserrat,sans-serif;font-weight:800;font-size:12px;color:white;flex-shrink:0;border:2px solid rgba(255,255,255,0.3)}
+.ag-logo{width:56px;height:56px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid rgba(255,255,255,0.4)}
 .agname{font-family:Montserrat,sans-serif;font-weight:800;font-size:15px;color:white}
 .agrole{font-size:12px;color:rgba(255,255,255,0.7);margin-top:2px}
 .socwrap{margin-left:auto;display:flex;gap:8px}
@@ -102,6 +102,56 @@ body{font-family:'Open Sans',sans-serif;background:var(--light);color:var(--text
 .footer{text-align:center;padding:1.5rem;font-size:12px;color:var(--muted);border-top:1px solid var(--border);max-width:720px;margin:0 auto}
 .footer strong{color:var(--blue)}
 @media(max-width:520px){.r2,.r3{grid-template-columns:1fr}.stats3{grid-template-columns:1fr 1fr}.compnums{flex-wrap:wrap;gap:8px}.ctawrap{flex-direction:column}}
+/* ── Rubrica Case ── */
+.rubrica-card{background:white;border:1px solid var(--border);border-radius:12px;padding:1.25rem;margin-bottom:1.25rem}
+.rubrica-title{font-family:Montserrat,sans-serif;font-size:13px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:1px;margin-bottom:1rem;display:flex;align-items:center;justify-content:space-between}
+.rubrica-count{background:#EEF2FF;color:var(--blue);font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;letter-spacing:0;text-transform:none}
+.casa-list{display:flex;flex-direction:column;gap:8px;margin-bottom:1rem}
+.casa-item{display:flex;align-items:center;gap:10px;padding:11px 13px;border:1.5px solid var(--border);border-radius:10px;background:var(--light);transition:border-color .15s,background .15s;cursor:pointer}
+.casa-item:hover{border-color:var(--blue);background:#f0f4ff}
+.casa-info{flex:1;min-width:0}
+.casa-nome{font-family:Montserrat,sans-serif;font-weight:700;font-size:13px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.casa-via{font-size:12px;color:var(--muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.casa-prezzo{font-size:11px;color:var(--blue);font-weight:600;margin-top:3px}
+.casa-actions{display:flex;gap:6px;flex-shrink:0}
+.btn-carica{padding:7px 13px;border-radius:7px;font-family:Montserrat,sans-serif;font-size:12px;font-weight:700;border:none;background:var(--blue);color:white;cursor:pointer;white-space:nowrap}
+.btn-elimina{width:32px;height:32px;border-radius:7px;border:none;background:#FEE2E2;color:var(--red);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;flex-shrink:0}
+.btn-elimina:hover{background:#FCA5A5}
+.btn-salva-casa{width:100%;padding:11px;border-radius:8px;font-family:Montserrat,sans-serif;font-size:13px;font-weight:700;border:1.5px solid var(--blue);background:white;color:var(--blue);cursor:pointer;transition:background .15s}
+.btn-salva-casa:hover{background:#EEF2FF}
+.rubrica-empty{text-align:center;padding:1.5rem 0;color:var(--muted);font-size:13px}
+.rubrica-empty-icon{font-size:28px;margin-bottom:8px}
+
+.concbox{background:white;border:1px solid var(--border);border-radius:12px;padding:1.25rem;margin-bottom:1.25rem}
+.conc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:12px}
+.conc-item{text-align:center;padding:12px;background:var(--light);border-radius:10px}
+.conc-lbl{font-size:11px;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px}
+.conc-val{font-family:Montserrat,sans-serif;font-weight:800;font-size:20px;color:var(--text)}
+.conc-note{font-size:13px;color:var(--muted);line-height:1.5;padding:10px 14px;background:var(--light);border-radius:8px}
+.scenbox{background:#FFF7ED;border:2px solid #F97316;border-radius:12px;padding:1.25rem;margin-bottom:1.25rem}
+.scen-title{font-family:Montserrat,sans-serif;font-size:12px;font-weight:700;text-transform:uppercase;color:#C2410C;letter-spacing:1px;margin-bottom:12px}
+.scen-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.scen-item{text-align:center;padding:12px;border-radius:10px}
+.scen-item-now{background:#FEE2E2}
+.scen-item-adj{background:#DCFCE7}
+.scen-lbl{font-size:11px;color:var(--muted);margin-bottom:4px}
+.scen-val{font-family:Montserrat,sans-serif;font-weight:800;font-size:18px}
+.scen-val-now{color:var(--red)}
+.scen-val-adj{color:var(--success)}
+.scen-desc{font-size:13px;line-height:1.6;color:#92400E}
+.stimabox{display:flex;align-items:center;gap:14px;background:white;border:1px solid var(--border);border-radius:12px;padding:1.25rem;margin-bottom:1.25rem}
+.stima-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:22px}
+.stima-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+.stima-val{font-family:Montserrat,sans-serif;font-weight:800;font-size:17px}
+.commentobox{background:var(--blue);border-radius:12px;padding:1.25rem;margin-bottom:1.25rem;color:white}
+.commento-header{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.commento-foto{width:44px;height:44px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,0.3);flex-shrink:0}
+.commento-chi{font-family:Montserrat,sans-serif;font-weight:700;font-size:13px;color:white}
+.commento-ruolo{font-size:11px;color:rgba(255,255,255,0.65);margin-top:2px}
+.commento-testo{font-size:13px;line-height:1.7;color:rgba(255,255,255,0.92);font-style:italic}
+.note-interne-box{background:#FEF3C7;border:1.5px dashed #F59E0B;border-radius:8px;padding:10px 14px;margin-top:8px}
+.note-interne-lbl{font-size:10px;font-weight:700;color:#92400E;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+@media(max-width:520px){.scen-grid{grid-template-columns:1fr}.conc-grid{grid-template-columns:1fr 1fr}}
 </style>
 </head>
 <body>
@@ -119,8 +169,11 @@ body{font-family:'Open Sans',sans-serif;background:var(--light);color:var(--text
 <div class="footer"><strong>Mario Mela</strong> &middot; RE/MAX Aequitas &middot; Agente Immobiliare &middot; Tel. 324 1516914</div>
 <div class="toast" id="toast"></div>
 <script>
+var PHOTO_DATA_URI = 'data:image/jpeg;base64,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';
+
 var params = new URLSearchParams(window.location.search);
 var isClient = params.has('p');
+var LS_KEY = 'remax_case_v1';
 
 function showToast(msg) {
   var t = document.getElementById('toast');
@@ -128,56 +181,153 @@ function showToast(msg) {
   t.classList.add('show');
   setTimeout(function() { t.classList.remove('show'); }, 2200);
 }
-
-function encode(obj) {
-  return btoa(unescape(encodeURIComponent(JSON.stringify(obj))));
-}
-
-function decode(str) {
-  try { return JSON.parse(decodeURIComponent(escape(atob(str)))); } catch(e) { return null; }
-}
-
+function encode(obj) { return btoa(unescape(encodeURIComponent(JSON.stringify(obj)))); }
+function decode(str) { try { return JSON.parse(decodeURIComponent(escape(atob(str)))); } catch(e) { return null; } }
 function v(id) { var el = document.getElementById(id); return el ? el.value.trim() : ''; }
-
 function toggleChk(label) {
   var cb = label.querySelector('input[type=checkbox]');
   setTimeout(function(){ label.classList.toggle('checked', cb.checked); }, 0);
 }
 
+/* ── Rubrica Case (localStorage) ── */
+function getCaseList() {
+  try { return JSON.parse(localStorage.getItem(LS_KEY) || '[]'); } catch(e) { return []; }
+}
+function saveCaseList(list) {
+  localStorage.setItem(LS_KEY, JSON.stringify(list));
+}
+function salvaCasa() {
+  var nome = v('f-nome'), via = v('f-via');
+  if (!nome || !via) { alert('Inserisci almeno nome e indirizzo prima di salvare.'); return; }
+  var list = getCaseList();
+  var esistente = list.find(function(c){ return c.nome === nome && c.via === via; });
+  if (esistente) {
+    if (!confirm('Questa proprietà è già salvata. Vuoi aggiornare i dati?')) return;
+    esistente.prezzo = v('f-prezzo');
+    esistente.mq = v('f-mq');
+    esistente.mediamq = v('f-mediamq');
+    saveCaseList(list);
+    showToast('Proprietà aggiornata!');
+  } else {
+    list.unshift({ id: Date.now(), nome: nome, via: via, prezzo: v('f-prezzo'), mq: v('f-mq'), mediamq: v('f-mediamq') });
+    saveCaseList(list);
+    showToast('Proprietà salvata!');
+  }
+  renderRubrica();
+}
+function caricaCasa(id) {
+  var list = getCaseList();
+  var casa = list.find(function(c){ return c.id == id; });
+  if (!casa) return;
+  document.getElementById('f-nome').value = casa.nome || '';
+  document.getElementById('f-via').value = casa.via || '';
+  document.getElementById('f-prezzo').value = casa.prezzo || '';
+  document.getElementById('f-mq').value = casa.mq || '';
+  document.getElementById('f-mediamq').value = casa.mediamq || '';
+  // reset campi settimanali
+  ['f-giorni','f-settimana','f-visite','f-richieste','f-prossime','f-views','f-offerte','f-commenti','f-obiezioni','f-passi','f-lavoro-note','f-conc-n','f-conc-prezzo','f-adeg','f-commento-agente'].forEach(function(fid){
+    var el = document.getElementById(fid);
+    if (el) el.value = '';
+  });
+  document.getElementById('f-interesse').value = 'Medio';
+  document.getElementById('f-trend').value = 'stabile';
+  document.querySelectorAll('#chk-grid input[type=checkbox]').forEach(function(cb){
+    cb.checked = false;
+    cb.closest('.chk-item').classList.remove('checked');
+  });
+  document.getElementById('result').innerHTML = '';
+  showToast('Proprietà caricata: ' + casa.nome);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function eliminaCasa(id) {
+  var list = getCaseList();
+  var casa = list.find(function(c){ return c.id == id; });
+  if (!casa) return;
+  if (!confirm('Eliminare "' + casa.nome + '" dalla rubrica?')) return;
+  saveCaseList(list.filter(function(c){ return c.id != id; }));
+  renderRubrica();
+  showToast('Proprietà eliminata.');
+}
+function renderRubrica() {
+  var el = document.getElementById('rubrica-container');
+  if (!el) return;
+  var list = getCaseList();
+  if (list.length === 0) {
+    el.innerHTML = '<div class="rubrica-empty"><div class="rubrica-empty-icon">🏠</div>Nessuna proprietà salvata.<br>Compila il form e clicca <strong>Salva in rubrica</strong>.</div>';
+    document.getElementById('rubrica-count').textContent = '0';
+    return;
+  }
+  document.getElementById('rubrica-count').textContent = list.length;
+  var html = '<div class="casa-list">';
+  list.forEach(function(c) {
+    html += '<div class="casa-item">' +
+      '<div class="casa-info" onclick="caricaCasa(' + c.id + ')">' +
+        '<div class="casa-nome">' + escHtml(c.nome) + '</div>' +
+        '<div class="casa-via">' + escHtml(c.via) + '</div>' +
+        (c.prezzo ? '<div class="casa-prezzo">€ ' + parseInt(c.prezzo).toLocaleString('it-IT') + '</div>' : '') +
+      '</div>' +
+      '<div class="casa-actions">' +
+        '<button class="btn-carica" onclick="caricaCasa(' + c.id + ')">Carica</button>' +
+        '<button class="btn-elimina" onclick="eliminaCasa(' + c.id + ')" title="Elimina">✕</button>' +
+      '</div>' +
+    '</div>';
+  });
+  html += '</div>';
+  el.innerHTML = html;
+}
+function escHtml(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
 function renderAdmin() {
-  document.getElementById('app').innerHTML =
-    '<div class="admin-box">' +
-    '<div class="atitle">Pannello agente <span class="badge">solo tu vedi questo</span></div>' +
-    '<div class="card"><div class="ctitle">Dati Immobile</div>' +
-    '<div class="r2"><div class="fg"><label>Nome proprieta</label><input id="f-nome" placeholder="es. Appartamento Via Roma"></div><div class="fg"><label>Indirizzo</label><input id="f-via" placeholder="es. Via Roma 12, Pesaro"></div></div>' +
-    '<div class="r3"><div class="fg"><label>Prezzo (euro)</label><input id="f-prezzo" placeholder="es. 280000"></div><div class="fg"><label>Giorni sul mercato</label><input type="number" id="f-giorni" placeholder="es. 45"></div><div class="fg"><label>Settimana</label><input id="f-settimana" placeholder="es. 5-11 Maggio"></div></div>' +
-    '<div class="r2"><div class="fg"><label>Superficie (mq)</label><input type="number" id="f-mq" placeholder="es. 85"></div><div class="fg"><label>Prezzo medio zona (euro/mq)</label><input type="number" id="f-mediamq" placeholder="es. 2100"></div></div>' +
-    '</div>' +
-    '<div class="card"><div class="ctitle">Lavoro Svolto questa settimana</div>' +
-    '<div class="chk-grid" id="chk-grid">' +
-    '<label class="chk-item" onclick="toggleChk(this)"><input type="checkbox" value="Portali aggiornati"><span>Portali aggiornati</span></label>' +
-    '<label class="chk-item" onclick="toggleChk(this)"><input type="checkbox" value="Foto aggiornate / nuove foto"><span>Foto aggiornate / nuove foto</span></label>' +
-    '<label class="chk-item" onclick="toggleChk(this)"><input type="checkbox" value="Scheda immobile ottimizzata"><span>Scheda immobile ottimizzata</span></label>' +
-    '<label class="chk-item" onclick="toggleChk(this)"><input type="checkbox" value="Campagna social avviata"><span>Campagna social avviata</span></label>' +
-    '<label class="chk-item" onclick="toggleChk(this)"><input type="checkbox" value="Volantini / materiale cartaceo distribuito"><span>Volantini / materiale cartaceo distribuito</span></label>' +
-    '<label class="chk-item" onclick="toggleChk(this)"><input type="checkbox" value="Contatti ricontattati"><span>Contatti ricontattati</span></label>' +
-    '<label class="chk-item" onclick="toggleChk(this)"><input type="checkbox" value="Open house organizzato"><span>Open house organizzato</span></label>' +
-    '<label class="chk-item" onclick="toggleChk(this)"><input type="checkbox" value="Collaborazione con altri agenti"><span>Collaborazione con altri agenti</span></label>' +
-    '</div>' +
-    '<div class="r1"><div class="fg"><label>Note aggiuntive sul lavoro svolto</label><textarea id="f-lavoro-note" placeholder="es. Ho contattato 3 potenziali acquirenti, aggiornato il prezzo sui portali..."></textarea></div></div>' +
-    '</div>' +
-    '<div class="card"><div class="ctitle">Attività Settimana</div>' +
-    '<div class="r3"><div class="fg"><label>Visite effettuate</label><input type="number" id="f-visite" placeholder="0"></div><div class="fg"><label>Richieste info</label><input type="number" id="f-richieste" placeholder="0"></div><div class="fg"><label>Visite prossima sett.</label><input type="number" id="f-prossime" placeholder="0"></div></div>' +
-    '<div class="r3"><div class="fg"><label>Visualizzazioni</label><input type="number" id="f-views" placeholder="0"></div><div class="fg"><label>Offerte ricevute</label><input type="number" id="f-offerte" placeholder="0"></div><div class="fg"><label>Interesse generale</label><select id="f-interesse"><option value="Alto">Alto</option><option value="Medio" selected>Medio</option><option value="Basso">Basso</option></select></div></div>' +
-    '<div class="r1"><div class="fg"><label>Trend visite rispetto settimana scorsa</label><select id="f-trend"><option value="crescita">In crescita</option><option value="stabile" selected>Stabile</option><option value="calo">In calo</option></select></div></div>' +
-    '</div>' +
-    '<div class="card"><div class="ctitle">Feedback e Note</div>' +
-    '<div class="r1"><div class="fg"><label>Commenti visitatori</label><textarea id="f-commenti" placeholder="es. Apprezzano la luminosita..."></textarea></div></div>' +
-    '<div class="r1"><div class="fg"><label>Obiezioni principali</label><textarea id="f-obiezioni" placeholder="es. Prezzo percepito come alto..."></textarea></div></div>' +
-    '<div class="r1" style="margin-bottom:0"><div class="fg"><label>Prossimi passi consigliati</label><textarea id="f-passi" placeholder="es. Valutare una riduzione del prezzo..."></textarea></div></div>' +
-    '</div>' +
-    '<button class="btn-gen" id="genbtn" onclick="makeReport()">Genera resoconto da condividere</button>' +
-    '<div id="result"></div></div>';
+  var app = document.getElementById('app');
+  var html = '';
+  html += '<div class="admin-box">';
+  html += '<div class="atitle">Pannello agente <span class="badge">solo tu vedi questo</span></div>';
+  // Rubrica
+  html += '<div class="rubrica-card"><div class="rubrica-title">&#127968; Rubrica propriet&#224; <span class="rubrica-count" id="rubrica-count">0</span></div>';
+  html += '<div id="rubrica-container"><div class="rubrica-empty"><div class="rubrica-empty-icon">&#127968;</div>Nessuna propriet&#224; salvata.<br>Compila il form e clicca <strong>Salva in rubrica</strong>.</div></div></div>';
+  // Dati immobile
+  html += '<div class="card"><div class="ctitle">Dati Immobile</div>';
+  html += '<div class="r2"><div class="fg"><label>Nome propriet&#224;</label><input id="f-nome" placeholder="es. Appartamento Via Roma"></div><div class="fg"><label>Indirizzo</label><input id="f-via" placeholder="es. Via Roma 12, Pesaro"></div></div>';
+  html += '<div class="r3"><div class="fg"><label>Prezzo (&#8364;)</label><input id="f-prezzo" placeholder="es. 280000"></div><div class="fg"><label>Giorni sul mercato</label><input type="number" id="f-giorni" placeholder="es. 45"></div><div class="fg"><label>Settimana</label><input id="f-settimana" placeholder="es. 19-25 Mag"></div></div>';
+  html += '<div class="r2"><div class="fg"><label>Superficie (mq)</label><input type="number" id="f-mq" placeholder="es. 85"></div><div class="fg"><label>Prezzo medio zona (&#8364;/mq)</label><input type="number" id="f-mediamq" placeholder="es. 2100"></div></div>';
+  html += '<button class="btn-salva-casa" onclick="salvaCasa()">&#128190; Salva / aggiorna in rubrica</button></div>';
+  // Mercato e concorrenza
+  html += '<div class="card"><div class="ctitle">Mercato &amp; Concorrenza</div>';
+  html += '<div class="r3"><div class="fg"><label>Annunci simili in zona</label><input type="number" id="f-conc-n" placeholder="es. 8"></div>';
+  html += '<div class="fg"><label>Prezzo medio concorrenza (&#8364;)</label><input type="number" id="f-conc-prezzo" placeholder="es. 265000"></div>';
+  html += '<div class="fg"><label>Adeguamento suggerito (%)</label><input type="number" id="f-adeg" placeholder="es. 5" min="0" max="30"></div></div></div>';
+  // Lavoro svolto
+  html += '<div class="card"><div class="ctitle">Lavoro Svolto questa settimana</div>';
+  html += '<div class="chk-grid" id="chk-grid">';
+  html += '<label class="chk-item" onclick="toggleChk(this)"><input type="checkbox" value="Portali aggiornati"><span>Portali aggiornati</span></label>';
+  html += '<label class="chk-item" onclick="toggleChk(this)"><input type="checkbox" value="Foto aggiornate / nuove foto"><span>Foto aggiornate / nuove foto</span></label>';
+  html += '<label class="chk-item" onclick="toggleChk(this)"><input type="checkbox" value="Scheda immobile ottimizzata"><span>Scheda immobile ottimizzata</span></label>';
+  html += '<label class="chk-item" onclick="toggleChk(this)"><input type="checkbox" value="Campagna social avviata"><span>Campagna social avviata</span></label>';
+  html += '<label class="chk-item" onclick="toggleChk(this)"><input type="checkbox" value="Volantini / materiale cartaceo distribuito"><span>Volantini / materiale cartaceo distribuito</span></label>';
+  html += '<label class="chk-item" onclick="toggleChk(this)"><input type="checkbox" value="Contatti ricontattati"><span>Contatti ricontattati</span></label>';
+  html += '<label class="chk-item" onclick="toggleChk(this)"><input type="checkbox" value="Open house organizzato"><span>Open house organizzato</span></label>';
+  html += '<label class="chk-item" onclick="toggleChk(this)"><input type="checkbox" value="Collaborazione con altri agenti"><span>Collaborazione con altri agenti</span></label>';
+  html += '</div>';
+  html += '<div class="r1"><div class="fg"><label>Note aggiuntive sul lavoro svolto</label><textarea id="f-lavoro-note" placeholder="es. Ho contattato 3 potenziali acquirenti..."></textarea></div></div></div>';
+  // Attività settimana
+  html += '<div class="card"><div class="ctitle">Attivit&#224; Settimana</div>';
+  html += '<div class="r3"><div class="fg"><label>Visite effettuate</label><input type="number" id="f-visite" placeholder="0"></div><div class="fg"><label>Richieste info</label><input type="number" id="f-richieste" placeholder="0"></div><div class="fg"><label>Visite prossima sett.</label><input type="number" id="f-prossime" placeholder="0"></div></div>';
+  html += '<div class="r3"><div class="fg"><label>Visualizzazioni</label><input type="number" id="f-views" placeholder="0"></div><div class="fg"><label>Offerte ricevute</label><input type="number" id="f-offerte" placeholder="0"></div>';
+  html += '<div class="fg"><label>Interesse generale</label><select id="f-interesse"><option value="Alto">Alto</option><option value="Medio" selected>Medio</option><option value="Basso">Basso</option></select></div></div>';
+  html += '<div class="r1"><div class="fg"><label>Trend visite rispetto settimana scorsa</label><select id="f-trend"><option value="crescita">In crescita</option><option value="stabile" selected>Stabile</option><option value="calo">In calo</option></select></div></div></div>';
+  // Feedback e Note
+  html += '<div class="card"><div class="ctitle">Feedback e Note</div>';
+  html += '<div class="r1"><div class="fg"><label>Commenti visitatori</label><textarea id="f-commenti" placeholder="es. Apprezzano la luminosit&#224;..."></textarea></div></div>';
+  html += '<div class="r1"><div class="fg"><label>Prossimi passi consigliati</label><textarea id="f-passi" placeholder="es. Valutare una riduzione del prezzo..."></textarea></div></div>';
+  html += '<div class="note-interne-box"><div class="note-interne-lbl">&#128274; Note interne (solo per te &#8212; NON visibili al cliente)</div>';
+  html += '<div class="fg"><textarea id="f-obiezioni" placeholder="es. Prezzo percepito alto, commenti negativi sul piano..."></textarea></div></div></div>';
+  // Commento agente
+  html += '<div class="card"><div class="ctitle">Commento Agente</div>';
+  html += '<div class="r1"><div class="fg"><label>Messaggio personale al venditore (visibile nel resoconto)</label><textarea id="f-commento-agente" placeholder="es. Questa settimana abbiamo ricevuto 3 visite di qualit&#224;. Il mercato ci sta indicando che il prezzo attuale rallenta le trattative. La mia raccomandazione &#232; di valutare un adeguamento strategico per accelerare i tempi."></textarea></div></div></div>';
+  html += '<button class="btn-gen" id="genbtn" onclick="makeReport()">Genera resoconto da condividere</button>';
+  html += '<div id="result"></div></div>';
+  app.innerHTML = html;
+  renderRubrica();
 }
 
 function makeReport() {
@@ -185,7 +335,7 @@ function makeReport() {
   if (!nome || !via) { alert("Inserisci almeno nome e indirizzo."); return; }
   var chks = document.querySelectorAll('#chk-grid input[type=checkbox]:checked');
   var lavoro = Array.from(chks).map(function(c){return c.value;});
-  var data = { nome:nome, via:via, prezzo:v('f-prezzo'), giorni:v('f-giorni'), settimana:v('f-settimana'), mq:v('f-mq'), mediamq:v('f-mediamq'), visite:v('f-visite')||'0', richieste:v('f-richieste')||'0', prossime:v('f-prossime')||'0', views:v('f-views')||'0', offerte:v('f-offerte')||'0', interesse:document.getElementById('f-interesse').value, trend:document.getElementById('f-trend').value, commenti:v('f-commenti'), obiezioni:v('f-obiezioni'), passi:v('f-passi'), lavoro:lavoro, lavoronote:v('f-lavoro-note') };
+  var data = { nome:nome, via:via, prezzo:v('f-prezzo'), giorni:v('f-giorni'), settimana:v('f-settimana'), mq:v('f-mq'), mediamq:v('f-mediamq'), visite:v('f-visite')||'0', richieste:v('f-richieste')||'0', prossime:v('f-prossime')||'0', views:v('f-views')||'0', offerte:v('f-offerte')||'0', interesse:document.getElementById('f-interesse').value, trend:document.getElementById('f-trend').value, commenti:v('f-commenti'), passi:v('f-passi'), lavoro:lavoro, lavoronote:v('f-lavoro-note'), concN:v('f-conc-n'), concPrezzo:v('f-conc-prezzo'), adeg:v('f-adeg'), commentoAgente:v('f-commento-agente') };
   var base = 'https://melamario33-crypto.github.io/resoconto-remax/index.html';
   var link = base + '?p=' + encode(data);
   var btn = document.getElementById('genbtn');
@@ -199,7 +349,7 @@ function makeReport() {
 }
 
 function showResult(fl, ll, nome, sett) {
-  var msg = 'Resoconto settimanale per '+nome+(sett?' - '+sett:'')+'\n\nBuongiorno! Ecco il resoconto aggiornato della sua proprieta:\n'+fl+'\n\nSono disponibile per qualsiasi domanda.\nMario Mela - RE/MAX Aequitas';
+  var msg = 'Resoconto settimanale per '+nome+(sett?' - '+sett:'')+'\n\nBuongiorno! Ecco il resoconto aggiornato della sua proprietà:\n'+fl+'\n\nSono disponibile per qualsiasi domanda.\nMario Mela - RE/MAX Aequitas';
   var wa = encodeURIComponent(msg);
   document.getElementById('result').innerHTML = '<div class="link-box"><div class="llbl">Resoconto pronto'+(sett?' - '+sett:'')+'</div><div class="lurl" id="fl">'+fl+'</div><div class="lbtns"><button class="lbtn lbtn-cp" onclick="copyLink()">Copia link</button><button class="lbtn lbtn-wa" onclick=\'window.open("https://wa.me/?text='+wa+'","_blank")\'>WhatsApp</button><button class="lbtn lbtn-pv" onclick=\'window.open("'+ll+'","_blank")\'>Anteprima</button></div></div>';
   document.getElementById('result').dataset.link = fl;
@@ -212,44 +362,111 @@ function renderReport() {
   var d = decode(params.get('p'));
   if (!d) { document.getElementById('app').innerHTML='<p style="padding:2rem;text-align:center;color:var(--muted)">Resoconto non valido.</p>'; return; }
   var h = '';
+  // Header immobile
   h += '<div class="rhead"><div class="rtitle">'+(d.nome||'')+'</div><div class="rsub">'+(d.via||'')+'</div>'+(d.settimana?'<div class="rbadge">Settimana '+d.settimana+'</div>':'')+'</div>';
-  h += '<div class="stats3"><div class="stat"><div class="stic icb"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg></div><div class="stn">'+(d.views||'0')+'</div><div class="stl">Visualizzazioni</div></div><div class="stat"><div class="stic icr"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg></div><div class="stn">'+(d.visite||'0')+'</div><div class="stl">Visite effettuate</div></div><div class="stat"><div class="stic icg"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z"/></svg></div><div class="stn">'+(d.richieste||'0')+'</div><div class="stl">Richieste info</div></div></div>';
+  // Stats 3
+  h += '<div class="stats3">';
+  h += '<div class="stat"><div class="stic icb"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg></div><div class="stn">'+(d.views||'0')+'</div><div class="stl">Visualizzazioni</div></div>';
+  h += '<div class="stat"><div class="stic icr"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg></div><div class="stn">'+(d.visite||'0')+'</div><div class="stl">Visite effettuate</div></div>';
+  h += '<div class="stat"><div class="stic icg"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z"/></svg></div><div class="stn">'+(d.richieste||'0')+'</div><div class="stl">Richieste info</div></div>';
+  h += '</div>';
+  // Dettagli immobile
   h += '<div class="card"><div class="slbl">Dettagli immobile</div>';
-  if (d.prezzo) h += '<div class="irow"><span class="ik">Prezzo di vendita</span><span class="iv">euro '+parseInt(d.prezzo).toLocaleString('it-IT')+'</span></div>';
+  if (d.prezzo) h += '<div class="irow"><span class="ik">Prezzo di vendita</span><span class="iv">&euro; '+parseInt(d.prezzo).toLocaleString('it-IT')+'</span></div>';
   if (d.giorni) h += '<div class="irow"><span class="ik">Giorni sul mercato</span><span class="iv">'+d.giorni+' giorni</span></div>';
   if (d.mq) h += '<div class="irow"><span class="ik">Superficie</span><span class="iv">'+d.mq+' mq</span></div>';
   h += '<div class="irow"><span class="ik">Visite prossima sett.</span><span class="iv">'+(d.prossime||'0')+' programmate</span></div>';
   if (d.offerte&&d.offerte!='0') h += '<div class="irow"><span class="ik">Offerte ricevute</span><span class="iv">'+d.offerte+'</span></div>';
   var pc=d.interesse==='Alto'?'pill-a':d.interesse==='Medio'?'pill-m':'pill-b';
   h += '<div class="irow" style="border-bottom:none"><span class="ik">Interesse generale</span><span class="'+pc+'">'+(d.interesse||'Medio')+'</span></div></div>';
+  // Indice competitivita
   if (d.mediamq&&d.mq&&d.prezzo) {
     var pn=parseFloat(String(d.prezzo).replace(/[^0-9]/g,'')),mn=parseFloat(d.mq),me=parseFloat(d.mediamq);
     if (pn&&mn&&me) {
       var pmq=Math.round(pn/mn),dp=((pmq-me)/me*100).toFixed(1),dn=parseFloat(dp);
       var col=dn>10?'var(--red)':dn>0?'#F59E0B':'var(--success)';
       var lbl=dn>10?'Sopra mercato - il prezzo potrebbe rallentare le trattative':dn>0?'Leggermente sopra - margine di miglioramento':'In linea con il mercato - prezzo competitivo';
-      h += '<div class="compbox"><div class="slbl">Indice di competitivita</div><div class="compnums"><div class="compitem"><div class="complbl">Prezzo al mq</div><div class="compval">euro '+pmq.toLocaleString('it-IT')+'/mq</div></div><div class="compitem"><div class="complbl">Media zona</div><div class="compval">euro '+Math.round(me).toLocaleString('it-IT')+'/mq</div></div><div class="compitem"><div class="complbl">Differenza</div><div class="compval" style="color:'+col+'">'+(dn>0?'+':'')+dp+'%</div></div></div><div class="compres" style="color:'+col+'">'+lbl+'</div></div>';
+      h += '<div class="compbox"><div class="slbl">Indice di competitivit&agrave;</div><div class="compnums"><div class="compitem"><div class="complbl">Prezzo al mq</div><div class="compval">&euro; '+pmq.toLocaleString('it-IT')+'/mq</div></div><div class="compitem"><div class="complbl">Media zona</div><div class="compval">&euro; '+Math.round(me).toLocaleString('it-IT')+'/mq</div></div><div class="compitem"><div class="complbl">Differenza</div><div class="compval" style="color:'+col+'">'+(dn>0?'+':'')+dp+'%</div></div></div><div class="compres" style="color:'+col+'">'+lbl+'</div></div>';
     }
   }
-  if (d.trend) { var tc=d.trend==='crescita'?'var(--success)':d.trend==='calo'?'var(--red)':'#F59E0B',tl=d.trend==='crescita'?'In crescita':d.trend==='calo'?'In calo':'Stabile'; h += '<div class="trendbox" style="color:'+tc+'">Trend visite: '+tl+' rispetto alla settimana scorsa</div>'; }
+  // Trend
+  if (d.trend) {
+    var tc=d.trend==='crescita'?'var(--success)':d.trend==='calo'?'var(--red)':'#F59E0B';
+    var tl=d.trend==='crescita'?'In crescita':d.trend==='calo'?'In calo':'Stabile';
+    h += '<div class="trendbox" style="color:'+tc+'">Trend visite: '+tl+' rispetto alla settimana scorsa</div>';
+  }
+  // Analisi automatica
   var gi=parseInt(d.giorni)||0,vi=parseInt(d.visite)||0,msgs=[];
-  if (gi>180&&d.interesse==='Basso') msgs.push("L'immobile e sul mercato da "+gi+" giorni con interesse basso: e urgente valutare una revisione del prezzo.");
+  if (gi>180&&d.interesse==='Basso') msgs.push("L'immobile &egrave; sul mercato da "+gi+" giorni con interesse basso: &egrave; urgente valutare una revisione del prezzo.");
   else if (gi>90&&d.interesse==='Basso') msgs.push("Dopo "+gi+" giorni con interesse basso, si consiglia di valutare un adeguamento del prezzo.");
   else if (gi>60&&vi<5) msgs.push("Dopo "+gi+" giorni con sole "+vi+" visite, potrebbe essere utile rivedere la strategia di marketing.");
   if (d.trend==='calo'&&d.interesse!=='Alto') msgs.push("Le visite sono in calo: potrebbe essere il momento di rivalutare il posizionamento.");
-  if (msgs.length>0) { h += '<div class="alertbox"><div class="alttitle">Analisi automatica</div>'; for(var i=0;i<msgs.length;i++) h+='<div class="altmsg">⚠️ '+msgs[i]+'</div>'; h+='</div>'; }
+  if (msgs.length>0) { h += '<div class="alertbox"><div class="alttitle">Analisi automatica</div>'; for(var i=0;i<msgs.length;i++) h+='<div class="altmsg">&#9888;&#65039; '+msgs[i]+'</div>'; h+='</div>'; }
+  // Concorrenza
+  if (d.concN || d.concPrezzo) {
+    h += '<div class="concbox"><div class="slbl">Confronto con la concorrenza</div><div class="conc-grid">';
+    if (d.concN) h += '<div class="conc-item"><div class="conc-lbl">Annunci simili in zona</div><div class="conc-val">'+d.concN+'</div></div>';
+    if (d.concPrezzo) {
+      h += '<div class="conc-item"><div class="conc-lbl">Prezzo medio zona</div><div class="conc-val">&euro; '+parseInt(d.concPrezzo).toLocaleString('it-IT')+'</div></div>';
+      if (d.prezzo) {
+        var diff=parseInt(d.prezzo)-parseInt(d.concPrezzo);
+        var diffPct=((diff/parseInt(d.concPrezzo))*100).toFixed(0);
+        var diffCol=diff>0?'var(--red)':'var(--success)';
+        h += '<div class="conc-item"><div class="conc-lbl">Il tuo prezzo vs media</div><div class="conc-val" style="color:'+diffCol+'">'+(diff>0?'+':'')+diffPct+'%</div></div>';
+      }
+    }
+    h += '</div>';
+    if (d.concN&&d.concPrezzo&&d.prezzo&&parseInt(d.prezzo)>parseInt(d.concPrezzo)) {
+      h += '<div class="conc-note">&#128202; Ci sono <strong>'+d.concN+' immobili simili</strong> in zona con prezzo medio inferiore. Gli acquirenti stanno confrontando: un prezzo pi&ugrave; competitivo aumenta significativamente le probabilit&agrave; di offerta.</div>';
+    } else if (d.concN&&d.concPrezzo&&d.prezzo) {
+      h += '<div class="conc-note">&#9989; Il prezzo &egrave; in linea o inferiore alla media della concorrenza: ottima posizione competitiva.</div>';
+    }
+    h += '</div>';
+  }
+  // Scenario adeguamento prezzo
+  if (d.adeg&&d.prezzo&&parseFloat(d.adeg)>0) {
+    var pOrig=parseInt(d.prezzo);
+    var pct=parseFloat(d.adeg)/100;
+    var pAdeg=Math.round(pOrig*(1-pct));
+    var risparmio=pOrig-pAdeg;
+    h += '<div class="scenbox"><div class="scen-title">&#128161; Scenario adeguamento prezzo (-'+d.adeg+'%)</div>';
+    h += '<div class="scen-grid">';
+    h += '<div class="scen-item scen-item-now"><div class="scen-lbl">Prezzo attuale</div><div class="scen-val scen-val-now">&euro; '+pOrig.toLocaleString('it-IT')+'</div></div>';
+    h += '<div class="scen-item scen-item-adj"><div class="scen-lbl">Prezzo adeguato (-'+d.adeg+'%)</div><div class="scen-val scen-val-adj">&euro; '+pAdeg.toLocaleString('it-IT')+'</div></div>';
+    h += '</div>';
+    h += '<div class="scen-desc">Una revisione di <strong>&euro; '+risparmio.toLocaleString('it-IT')+'</strong> porterebbe l\'immobile nella fascia pi&ugrave; competitiva del mercato attuale, aumentando l\'interesse degli acquirenti qualificati e riducendo i tempi di vendita.</div>';
+    h += '</div>';
+  }
+  // Stima tempo a vendita
+  var gi2=parseInt(d.giorni)||0,vi2=parseInt(d.visite)||0;
+  var stimaText='',stimaBg='#EEF2FF',stimaCol='var(--blue)',stimaIcon='&#128197;';
+  if (d.interesse==='Alto'&&d.trend==='crescita'){stimaText='Vendita probabile entro 4-6 settimane';stimaBg='#DCFCE7';stimaCol='var(--success)';stimaIcon='&#128640;';}
+  else if (d.interesse==='Alto'){stimaText='Vendita probabile entro 6-10 settimane';stimaBg='#DCFCE7';stimaCol='var(--success)';stimaIcon='&#9989;';}
+  else if (d.interesse==='Medio'&&d.trend!=='calo'){stimaText='Stima vendita: 2-4 mesi ai ritmi attuali';stimaBg='#FEF3C7';stimaCol='#B45309';stimaIcon='&#9203;';}
+  else if (gi2>120||d.interesse==='Basso'||d.trend==='calo'){stimaText='All\'andamento attuale: oltre 4-6 mesi';stimaBg='#FEE2E2';stimaCol='var(--red)';stimaIcon='&#9888;&#65039;';}
+  else{stimaText='Stima vendita: 2-3 mesi ai ritmi attuali';stimaBg='#FEF3C7';stimaCol='#B45309';stimaIcon='&#128197;';}
+  if (stimaText) h += '<div class="stimabox"><div class="stima-icon" style="background:'+stimaBg+'">'+stimaIcon+'</div><div><div class="stima-label">Stima tempo a vendita</div><div class="stima-val" style="color:'+stimaCol+'">'+stimaText+'</div></div></div>';
+  // Feedback visitatori
+  if (d.commenti) h += '<div class="slbl">Feedback visitatori</div><div class="fbbox">&#128172; '+d.commenti+'</div>';
+  if (d.passi) h += '<div class="nextbox">&#127919; <strong>Prossimi passi:</strong> '+d.passi+'</div>';
+  // Lavoro svolto (in fondo)
   if ((d.lavoro&&d.lavoro.length>0)||d.lavoronote) {
-    h += '<div class="lavoro-box"><div class="slbl">Lavoro svolto questa settimana</div><ul class="lavoro-list">';
-    if (d.lavoro&&d.lavoro.length>0) { for(var j=0;j<d.lavoro.length;j++) h+='<li>'+d.lavoro[j]+'</li>'; }
+    h += '<div class="lavoro-box"><div class="slbl">Attivit&agrave; svolte questa settimana</div><ul class="lavoro-list">';
+    if (d.lavoro&&d.lavoro.length>0){for(var j=0;j<d.lavoro.length;j++) h+='<li>'+d.lavoro[j]+'</li>';}
     h += '</ul>';
     if (d.lavoronote) h += '<div class="lavoro-note">'+d.lavoronote+'</div>';
     h += '</div>';
   }
-  if (d.commenti) h += '<div class="slbl">Feedback visitatori</div><div class="fbbox">💬 '+d.commenti+'</div>';
-  if (d.obiezioni) h += '<div class="fbwarn">⚠️ <strong>Obiezioni:</strong> '+d.obiezioni+'</div>';
-  if (d.passi) h += '<div class="nextbox">🎯 <strong>Prossimi passi:</strong> '+d.passi+'</div>';
-  h += '<div class="agcard"><div class="ag-logo">RE/<br>MAX</div><div style="flex:1"><div class="agname">Mario Mela</div><div class="agrole">Agente Immobiliare · RE/MAX Aequitas</div></div><div class="socwrap"><a class="soc" href="https://www.instagram.com/melamario_remax/" target="_blank"><svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a><a class="soc" href="https://www.facebook.com/melamarioremax" target="_blank"><svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a></div></div>';
-  h += '<div class="ctawrap"><a class="cta ctaph" href="tel:+393241516914">Chiama Mario</a><a class="cta ctawa" href="https://wa.me/393241516914" target="_blank">WhatsApp</a></div>';
+  // Commento agente
+  if (d.commentoAgente) {
+    h += '<div class="commentobox"><div class="commento-header"><img class="commento-foto" src="'+PHOTO_DATA_URI+'" alt="Mario Mela"><div><div class="commento-chi">Mario Mela</div><div class="commento-ruolo">Agente Immobiliare &middot; RE/MAX Aequitas</div></div></div>';
+    h += '<div class="commento-testo">&ldquo;'+d.commentoAgente+'&rdquo;</div></div>';
+  }
+  // Card agente contatti
+  h += '<div class="agcard"><img class="ag-logo" src="'+PHOTO_DATA_URI+'" alt="Mario Mela"><div style="flex:1"><div class="agname">Mario Mela</div><div class="agrole">Agente Immobiliare &middot; RE/MAX Aequitas</div></div>';
+  h += '<div class="socwrap"><a class="soc" href="https://www.instagram.com/melamario_remax/" target="_blank"><svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>';
+  h += '<a class="soc" href="https://www.facebook.com/melamarioremax" target="_blank"><svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a></div></div>';
+  h += '<div class="ctawrap"><a class="cta ctaph" href="tel:+393241516914">&#128222; Chiama Mario</a><a class="cta ctawa" href="https://wa.me/393241516914" target="_blank">WhatsApp</a></div>';
   document.getElementById('app').innerHTML = h;
 }
 
