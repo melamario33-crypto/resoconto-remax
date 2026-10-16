@@ -418,6 +418,10 @@ function showResult(fl, ll, d){
 }
 
 /* ───────── RESOCONTO CLIENTE ───────── */
+var PL=false;
+function V(lei,voi){ return PL?voi:lei; }
+function has(x){ return x!==null && x!==undefined && x!==''; }
+function isNum(x){ return has(x) && /^\s*-?[\d.,]+\s*$/.test(String(x)); }
 function delta(cur, prev){
   if (prev==null) return '';
   var d = cur - prev;
@@ -435,16 +439,24 @@ function stimaTempi(d){
 }
 function riassunto(d){
   var vi=num(d.visite), ri=num(d.richieste), of=num(d.offerte), p=[];
-  var a = 'Questa settimana l’immobile ha ricevuto <b>'+ri+' richieste</b> e <b>'+vi+' '+(vi===1?'visita':'visite')+'</b>';
-  if (num(d.prossime)) a += ', con <b>'+num(d.prossime)+' '+(num(d.prossime)===1?'visita':'visite')+' già in agenda</b>';
+  var parti=[];
+  if (isNum(d.richieste) && ri) parti.push('<b>'+ri+' '+(ri===1?'richiesta':'richieste')+'</b>');
+  if (isNum(d.visite) && vi) parti.push('<b>'+vi+' '+(vi===1?'visita':'visite')+'</b>');
+  var zeri = (isNum(d.visite) && !vi) || (isNum(d.richieste) && !ri);
+  var a = parti.length ? 'Questa settimana l’immobile ha ricevuto '+parti.join(' e ')
+        : zeri ? 'Questa settimana non ci sono state '+((isNum(d.visite)&&!vi)?'visite':'richieste')
+        : 'Ecco l’aggiornamento della settimana';
+  if (isNum(d.prossime) && num(d.prossime)) a += ', con <b>'+num(d.prossime)+' '+(num(d.prossime)===1?'visita':'visite')+' già in agenda</b>';
+  else if (has(d.prossime) && !isNum(d.prossime)) a += '. Visite in arrivo: <b>'+esc(d.prossime)+'</b>';
   p.push(a+'.');
   if (of) p.push('Abbiamo <b>'+of+' '+(of===1?'proposta':'proposte')+'</b> da valutare insieme.');
   if (d.trend==='crescita') p.push('L’interesse è in crescita rispetto alla settimana scorsa.');
-  else if (d.trend==='calo') p.push('L’interesse è in calo rispetto alla settimana scorsa: più sotto trova i dati per capire perché.');
+  else if (d.trend==='calo') p.push('L’interesse è in calo rispetto alla settimana scorsa: più sotto '+V('trova','trovate')+' i dati per capire perché.');
   return p.join(' ');
 }
 function renderReport(){
   var d = decode(params.get('p'));
+  if(d && d.plur) PL=true;
   if(!d){ $('app').innerHTML='<p style="padding:2rem;text-align:center;color:var(--muted)">Resoconto non valido o link incompleto.</p>'; return; }
   var h='', n=0;
   $('hsub').textContent = 'Resoconto settimanale'+(d.settimana?' · '+d.settimana:'');
@@ -464,20 +476,21 @@ function renderReport(){
   /* 1 · In breve */
   h += '<div class="sec"><span class="sec-n">0'+(++n)+'</span><span class="sec-t">La settimana in breve</span></div>';
   var pv = d.pv || null;
-  h += '<div class="kpis">'+
-    '<div class="kpi"><div class="kpi-n">'+num(d.richieste)+'</div><div class="kpi-l">Richieste</div>'+delta(num(d.richieste), pv?pv[1]:null)+'</div>'+
-    '<div class="kpi"><div class="kpi-n">'+num(d.visite)+'</div><div class="kpi-l">Visite</div>'+delta(num(d.visite), pv?pv[0]:null)+'</div>'+
-    '<div class="kpi"><div class="kpi-n">'+num(d.views)+'</div><div class="kpi-l">Visualizzazioni</div>'+delta(num(d.views), pv?pv[2]:null)+'</div></div>';
+  var tiles=[];
+  if (isNum(d.richieste)) tiles.push('<div class="kpi"><div class="kpi-n">'+num(d.richieste)+'</div><div class="kpi-l">Richieste</div>'+delta(num(d.richieste), pv&&pv[1]!=null?pv[1]:null)+'</div>');
+  if (isNum(d.visite)) tiles.push('<div class="kpi"><div class="kpi-n">'+num(d.visite)+'</div><div class="kpi-l">Visite</div>'+delta(num(d.visite), pv&&pv[0]!=null?pv[0]:null)+'</div>');
+  if (isNum(d.views)) tiles.push('<div class="kpi"><div class="kpi-n">'+num(d.views)+'</div><div class="kpi-l">Visualizzazioni</div>'+delta(num(d.views), pv&&pv[2]!=null?pv[2]:null)+'</div>');
+  if (tiles.length) h += '<div class="kpis" style="grid-template-columns:repeat('+tiles.length+',1fr)">'+tiles.join('')+'</div>';
   h += '<div class="card summary">'+riassunto(d)+'</div>';
 
   /* 2 · Cosa ho fatto */
   if ((d.lavoro&&d.lavoro.length) || d.lavoronote || (d.st&&d.st.length>1)){
-    h += '<div class="sec"><span class="sec-n">0'+(++n)+'</span><span class="sec-t">Cosa abbiamo fatto per lei</span></div>';
+    h += '<div class="sec"><span class="sec-n">0'+(++n)+'</span><span class="sec-t">Cosa abbiamo fatto per '+V('lei','voi')+'</span></div>';
     h += '<div class="card">';
     if (d.lavoro&&d.lavoro.length) h += '<ul class="work">'+d.lavoro.map(function(l){return '<li>'+esc(l)+'</li>';}).join('')+'</ul>';
     if (d.lavoronote) h += '<div class="note">'+escBr(d.lavoronote)+'</div>';
     if (d.tot && d.tot[2]>1){
-      h += '<div class="tot"><div><b>'+d.tot[1]+'</b><span>richieste dall’inizio</span></div><div><b>'+d.tot[0]+'</b><span>visite dall’inizio</span></div><div><b>'+d.tot[2]+'</b><span>resoconti inviati</span></div></div>';
+      h += '<div class="tot">'+(d.tot[1]!=null?'<div><b>'+d.tot[1]+'</b><span>richieste dall’inizio</span></div>':'')+'<div><b>'+d.tot[0]+'</b><span>visite dall’inizio</span></div><div><b>'+d.tot[2]+'</b><span>resoconti inviati</span></div></div>';
     }
     if (d.st && d.st.length>1){
       var mx = Math.max.apply(null, d.st.map(function(x){return Math.max(x[1],1);}));
@@ -492,7 +505,8 @@ function renderReport(){
   var pc = d.interesse==='Alto'?'pill-a':d.interesse==='Basso'?'pill-b':'pill-m';
   h += '<div class="irow"><span>Interesse percepito</span><span class="pill '+pc+'">'+esc(d.interesse||'Medio')+'</span></div>';
   if (d.trend){ var tl=d.trend==='crescita'?'<span class="up">In crescita</span>':d.trend==='calo'?'<span class="down">In calo</span>':'Stabile'; h += '<div class="irow"><span>Andamento rispetto alla settimana scorsa</span><span>'+tl+'</span></div>'; }
-  h += '<div class="irow"><span>Visite già in agenda</span><span>'+num(d.prossime)+'</span></div>';
+  if (has(d.views) && !isNum(d.views)) h += '<div class="irow"><span>Visualizzazioni dell’annuncio</span><span>'+esc(d.views)+'</span></div>';
+  if (has(d.prossime)) h += '<div class="irow"><span>Visite già in agenda</span><span>'+(isNum(d.prossime)?num(d.prossime):esc(d.prossime))+'</span></div>';
   if (num(d.offerte)) h += '<div class="irow"><span>Proposte ricevute</span><span>'+num(d.offerte)+'</span></div>';
   if (d.commenti) h += '<div class="quote">'+escBr(d.commenti)+'</div>';
   h += '</div>';
@@ -505,7 +519,7 @@ function renderReport(){
   var nConc = d.concN || (cl.length || '');
   if (nConc || cp){
     h += '<div class="sec"><span class="sec-n">0'+(++n)+'</span><span class="sec-t">Con chi la stiamo confrontando</span></div>';
-    h += '<div class="sec-q">Gli immobili simili in vendita che gli acquirenti valutano insieme al suo. Può aprirli e verificarli.</div>';
+    h += '<div class="sec-q">Gli immobili simili in vendita che gli acquirenti valutano insieme al '+V('suo','vostro')+'. '+V('Può','Potete')+' aprirli e verificarli.</div>';
     h += '<div class="card">';
     if (cl.length){
       h += '<div class="conc-l">'+cl.map(function(c){
@@ -518,17 +532,17 @@ function renderReport(){
     var usaMq = cmq && pr && mq;
     if (usaMq){
       var pmq = pr/mq, dc = Math.round((pmq-cmq)/cmq*100);
-      h += '<div class="irow"><span>Il suo prezzo al mq</span><span>'+eur(pmq)+'/mq</span></div>';
+      h += '<div class="irow"><span>'+V('Il suo','Il vostro')+' prezzo al mq</span><span>'+eur(pmq)+'/mq</span></div>';
       h += '<div class="irow"><span>Media dei concorrenti</span><span>'+eur(cmq)+'/mq</span></div>';
       h += '<div class="irow"><span>Differenza al mq</span><span class="'+(dc>0?'down':'up')+'">'+(dc>0?'+':'')+dc+'%</span></div>';
     } else if (cp){
       h += '<div class="irow"><span>Prezzo medio richiesto dai concorrenti</span><span>'+eur(cp)+'</span></div>';
-      if (pr){ var dc=Math.round((pr-cp)/cp*100); h += '<div class="irow"><span>Il suo prezzo rispetto a loro</span><span class="'+(dc>0?'down':'up')+'">'+(dc>0?'+':'')+dc+'%</span></div>'; }
+      if (pr){ var dc=Math.round((pr-cp)/cp*100); h += '<div class="irow"><span>'+V('Il suo','Il vostro')+' prezzo rispetto a loro</span><span class="'+(dc>0?'down':'up')+'">'+(dc>0?'+':'')+dc+'%</span></div>'; }
     }
     if ((usaMq || cp) && pr){
       var vb = dc>10 ? ['var(--bad-l)','var(--red)','Chi cerca trova soluzioni simili a meno, e tende a visitare prima quelle.'] :
                dc>0 ? ['var(--warn-l)','var(--warn)','Leggermente sopra i concorrenti: c’è margine per diventare la scelta più interessante.'] :
-               ['var(--ok-l)','var(--ok)','In linea o sotto i concorrenti: il prezzo lavora a suo favore.'];
+               ['var(--ok-l)','var(--ok)','Al metro quadro il prezzo è in linea o sotto i concorrenti.'];
       h += '<div class="verdict" style="background:'+vb[0]+';color:'+vb[1]+'">'+vb[2]+'</div>';
     }
     if (d.concNota) h += '<div class="hint" style="margin-top:10px">'+escBr(d.concNota)+'</div>';
@@ -547,7 +561,7 @@ function renderReport(){
     h += '<div class="opt alt"><div class="opt-h">B · Adeguare del '+esc(d.adeg)+'%</div><div class="opt-p" style="color:var(--ok)">'+eur(pa)+'</div><div class="opt-s">'+(pamq?eur(pamq)+'/mq':'')+'</div><ul>'+
       (vsConc!==null?'<li>'+(vsConc<=0?'In linea con i concorrenti':'Si avvicina ai concorrenti ('+(vsConc>0?'+':'')+vsConc+'%)')+'</li>':'')+
       '<li>Compare nelle ricerche di chi ha un budget fino a '+eur(Math.ceil(pa/10000)*10000)+'</li><li>Più visite qualificate, trattativa da una posizione più forte</li></ul></div>';
-    h += '</div><div class="choice">La decisione è sua: qui trova i dati per prenderla con serenità.</div>';
+    h += '</div><div class="choice">'+V('La decisione è sua: qui trova i dati per prenderla con serenità.','La decisione è vostra: qui trovate i dati per prenderla con serenità.')+'</div>';
   } else {
     h += '<div class="card" style="display:flex;align-items:center;gap:12px"><div style="font-size:26px">⏱️</div><div><div class="hint" style="text-transform:uppercase;letter-spacing:.6px;font-weight:700">Stima ai ritmi attuali</div><div class="mont" style="font-size:18px;font-weight:800;color:'+st.c+'">'+st.t+'</div></div></div>';
   }
@@ -555,9 +569,9 @@ function renderReport(){
   /* 6 · Prossimi passi + messaggio */
   if (d.passi) h += '<div class="next" style="margin-top:1.25rem"><div class="next-h">Prossimi passi</div>'+escBr(d.passi)+'</div>';
   if (d.commentoAgente){
-    h += '<div class="msg"><div class="msg-h"><img src="'+PHOTO_DATA_URI+'" alt="Mario Mela"><div><div class="msg-n">Mario Mela</div><div class="msg-r">Il suo agente · RE/MAX Aequitas</div></div></div><div class="msg-t">'+escBr(d.commentoAgente)+'</div></div>';
+    h += '<div class="msg"><div class="msg-h"><img src="'+PHOTO_DATA_URI+'" alt="Mario Mela"><div><div class="msg-n">Mario Mela</div><div class="msg-r">'+V('Il suo agente','Il vostro agente')+' · RE/MAX Aequitas</div></div></div><div class="msg-t">'+escBr(d.commentoAgente)+'</div></div>';
   }
-  if (d.prox) h += '<div class="nextrep">Prossimo resoconto: <b>'+esc(dataLunga(d.prox))+'</b>. Per qualsiasi dubbio, mi scriva prima.</div>';
+  if (d.prox) h += '<div class="nextrep">Prossimo resoconto: <b>'+esc(dataLunga(d.prox))+'</b>. Per qualsiasi dubbio, '+V('mi scriva prima.','scrivetemi prima.')+'</div>';
 
   h += '<div class="ag"><img src="'+PHOTO_DATA_URI+'" alt="Mario Mela"><div><div class="ag-n">Mario Mela</div><div class="ag-r">Agente immobiliare · RE/MAX Aequitas</div></div>'+
     '<div class="soc"><a href="https://www.instagram.com/melamario_remax/" target="_blank" rel="noopener" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 3.3.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-3.3-.1-4.8-1.7-4.9-4.9C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8C2.4 3.9 3.9 2.4 7.2 2.3 8.4 2.2 8.8 2.2 12 2.2zM12 5.8a6.2 6.2 0 100 12.4 6.2 6.2 0 000-12.4zm0 10.2a4 4 0 110-8 4 4 0 010 8zm6.4-11.8a1.4 1.4 0 100 2.9 1.4 1.4 0 000-2.9z"/></svg></a>'+
