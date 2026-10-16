@@ -151,6 +151,19 @@ a.rk:hover{border-color:var(--blue)}
 .costo{margin-top:14px;font-size:14px;line-height:1.6;border:1.5px solid var(--red);border-radius:10px;padding:11px 13px;color:var(--text)}
 .costo span{display:block;font-family:Montserrat,sans-serif;font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--red);margin-bottom:3px}
 .tl-txt{margin-top:14px;font-size:14px;line-height:1.6;background:var(--warn-l);color:#7c4a03;border-radius:10px;padding:11px 13px}
+.acts{display:flex;flex-direction:column;gap:10px}
+.act{display:flex;align-items:center;gap:12px}
+.act-i{width:38px;height:38px;border-radius:50%;background:var(--blue-l);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.act-b{display:flex;flex-direction:column;min-width:0}
+.act-b b{font-size:14.5px;font-weight:600;line-height:1.3}
+.act-b span{font-size:12.5px;color:var(--muted);line-height:1.4;margin-top:1px}
+.fun{display:flex;align-items:stretch;gap:4px;margin-top:16px}
+.fun-s{flex:1;background:var(--light);border-radius:10px;padding:10px 6px;text-align:center;display:flex;flex-direction:column;justify-content:center}
+.fun-s b{font-family:Montserrat,sans-serif;font-size:22px;font-weight:800;line-height:1.1}
+.fun-s span{font-size:11px;color:var(--muted);margin-top:3px;line-height:1.3}
+.fun-last{background:var(--blue-l)}
+.fun-last b{color:var(--blue)}
+.fun-ar{display:flex;align-items:center;color:var(--muted);font-size:20px;font-weight:700}
 .quote{border-left:4px solid var(--blue);background:var(--light);border-radius:0 10px 10px 0;padding:11px 13px;font-size:14px;margin-top:10px}
 .verdict{margin-top:12px;border-radius:10px;padding:11px 13px;font-size:14px;font-weight:600}
 .opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
@@ -448,6 +461,12 @@ function showResult(fl, ll, d){
 /* ───────── RESOCONTO CLIENTE ───────── */
 var PL=false;
 function V(lei,voi){ return PL?voi:lei; }
+function iconaAttivita(t){
+  var k=norm(t), ic='✓';
+  var mappa=[['sponsor','📣'],['social','📣'],['campagna','📣'],['annuncio','📝'],['portal','📝'],['scheda','📝'],['foto','📷'],['video','🎬'],['open house','🏠'],['telefon','📞'],['chiamat','📞'],['richiest','💬'],['contatt','👥'],['acquirent','👥'],['email','✉️'],['mail','✉️'],['volantin','📄'],['cartell','📄'],['agent','🤝'],['collega','🤝'],['visit','🔑']];
+  for (var i=0;i<mappa.length;i++){ if (k.indexOf(mappa[i][0])>-1){ ic=mappa[i][1]; break; } }
+  return ic;
+}
 function has(x){ return x!==null && x!==undefined && x!==''; }
 function isNum(x){ return has(x) && /^\s*-?[\d.,]+\s*$/.test(String(x)); }
 function delta(cur, prev){
@@ -512,10 +531,18 @@ function renderReport(){
   h += '<div class="card summary">'+riassunto(d)+'</div>';
 
   /* 2 · Cosa ho fatto */
-  if ((d.lavoro&&d.lavoro.length) || d.lavoronote || (d.st&&d.st.length>1)){
-    h += '<div class="sec"><span class="sec-n">0'+(++n)+'</span><span class="sec-t">Cosa abbiamo fatto questa settimana</span></div>';
+  if ((d.lavoro&&d.lavoro.length) || d.lavoronote || (d.funnel&&d.funnel.length) || (d.st&&d.st.length>1)){
+    h += '<div class="sec"><span class="sec-n">0'+(++n)+'</span><span class="sec-t">'+esc(d.lavoroTitolo || 'Cosa abbiamo fatto questa settimana')+'</span></div>';
     h += '<div class="card">';
-    if (d.lavoro&&d.lavoro.length) h += '<ul class="work">'+d.lavoro.map(function(l){return '<li>'+esc(l)+'</li>';}).join('')+'</ul>';
+    if (d.lavoro&&d.lavoro.length) h += '<div class="acts">'+d.lavoro.map(function(l){
+      var t=String(l), m=t.split(/\s*[:–—]\s+/), tit=m[0], sub=m.slice(1).join(' – ');
+      return '<div class="act"><div class="act-i">'+iconaAttivita(t)+'</div><div class="act-b"><b>'+esc(tit)+'</b>'+(sub?'<span>'+esc(sub)+'</span>':'')+'</div></div>';
+    }).join('')+'</div>';
+    if (d.funnel && d.funnel.length){
+      h += '<div class="fun">'+d.funnel.map(function(f,i){
+        return (i?'<div class="fun-ar">›</div>':'')+'<div class="fun-s'+(i===d.funnel.length-1?' fun-last':'')+'"><b>'+esc(f[1])+'</b><span>'+esc(f[0])+'</span></div>';
+      }).join('')+'</div>';
+    }
     if (d.lavoronote) h += '<div class="note">'+escBr(d.lavoronote)+'</div>';
     if (d.tot && d.tot[2]>1){
       h += '<div class="tot">'+(d.tot[1]!=null?'<div><b>'+d.tot[1]+'</b><span>richieste dall’inizio</span></div>':'')+'<div><b>'+d.tot[0]+'</b><span>visite dall’inizio</span></div><div><b>'+d.tot[2]+'</b><span>resoconti inviati</span></div></div>';
