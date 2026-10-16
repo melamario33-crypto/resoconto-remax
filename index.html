@@ -118,6 +118,11 @@ h1,h2,h3,.mont{font-family:Montserrat,sans-serif}
 .irow span:last-child{font-weight:600;text-align:right}
 .pill{display:inline-block;padding:3px 11px;border-radius:20px;font-family:Montserrat,sans-serif;font-size:12px;font-weight:700}
 .pill-a{background:var(--ok-l);color:var(--ok)}.pill-m{background:var(--warn-l);color:var(--warn)}.pill-b{background:var(--bad-l);color:var(--red)}
+.conc-l{display:flex;flex-direction:column;gap:6px;margin-bottom:8px}
+.conc-i{display:flex;flex-direction:column;padding:9px 12px;border:1px solid var(--border);border-radius:10px;text-decoration:none;color:var(--text)}
+a.conc-i:hover{border-color:var(--blue)}
+.conc-i b{font-size:13.5px;font-weight:600}
+.conc-i span{font-size:12.5px;color:var(--muted)}
 .quote{border-left:4px solid var(--blue);background:var(--light);border-radius:0 10px 10px 0;padding:11px 13px;font-size:14px;margin-top:10px}
 .verdict{margin-top:12px;border-radius:10px;padding:11px 13px;font-size:14px;font-weight:600}
 .opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
@@ -493,21 +498,40 @@ function renderReport(){
   h += '</div>';
 
   /* 4 · Concorrenza */
-  var pr=num(d.prezzo), mq=num(d.mq), cp=num(d.concPrezzo);
-  if (d.concN || cp){
+  var pr=num(d.prezzo), mq=num(d.mq), cp=num(d.concPrezzo), cl=(d.conc||[]).filter(function(c){return num(c[1]);});
+  var cmq = num(d.concMq);
+  if (!cmq && cl.length){ var sm=0,k=0; cl.forEach(function(c){ if(num(c[2])){ sm+=num(c[1])/num(c[2]); k++; } }); if(k) cmq=sm/k; }
+  if (!cp && cl.length){ cp = cl.reduce(function(a,c){return a+num(c[1]);},0)/cl.length; }
+  var nConc = d.concN || (cl.length || '');
+  if (nConc || cp){
     h += '<div class="sec"><span class="sec-n">0'+(++n)+'</span><span class="sec-t">Con chi la stiamo confrontando</span></div>';
-    h += '<div class="sec-q">Gli immobili simili in vendita che gli acquirenti stanno visitando insieme al suo.</div>';
+    h += '<div class="sec-q">Gli immobili simili in vendita che gli acquirenti valutano insieme al suo. Può aprirli e verificarli.</div>';
     h += '<div class="card">';
-    if (d.concN) h += '<div class="irow"><span>Immobili simili in vendita in zona</span><span>'+esc(d.concN)+'</span></div>';
-    if (cp) h += '<div class="irow"><span>Prezzo medio richiesto dai concorrenti</span><span>'+eur(cp)+'</span></div>';
-    if (cp && pr){
-      var dc=Math.round((pr-cp)/cp*100);
-      h += '<div class="irow"><span>Il suo prezzo rispetto a loro</span><span class="'+(dc>0?'down':'up')+'">'+(dc>0?'+':'')+dc+'%</span></div>';
+    if (cl.length){
+      h += '<div class="conc-l">'+cl.map(function(c){
+        var cm = num(c[2]) ? num(c[1])/num(c[2]) : 0;
+        var t = '<b>'+esc(c[0])+'</b><span>'+eur(num(c[1]))+(num(c[2])?' · '+num(c[2])+' mq · '+eur(cm)+'/mq':'')+'</span>';
+        return c[3] ? '<a class="conc-i" href="'+esc(c[3])+'" target="_blank" rel="noopener">'+t+'</a>' : '<div class="conc-i">'+t+'</div>';
+      }).join('')+'</div>';
+    }
+    if (nConc && !cl.length) h += '<div class="irow"><span>Immobili simili in vendita in zona</span><span>'+esc(nConc)+'</span></div>';
+    var usaMq = cmq && pr && mq;
+    if (usaMq){
+      var pmq = pr/mq, dc = Math.round((pmq-cmq)/cmq*100);
+      h += '<div class="irow"><span>Il suo prezzo al mq</span><span>'+eur(pmq)+'/mq</span></div>';
+      h += '<div class="irow"><span>Media dei concorrenti</span><span>'+eur(cmq)+'/mq</span></div>';
+      h += '<div class="irow"><span>Differenza al mq</span><span class="'+(dc>0?'down':'up')+'">'+(dc>0?'+':'')+dc+'%</span></div>';
+    } else if (cp){
+      h += '<div class="irow"><span>Prezzo medio richiesto dai concorrenti</span><span>'+eur(cp)+'</span></div>';
+      if (pr){ var dc=Math.round((pr-cp)/cp*100); h += '<div class="irow"><span>Il suo prezzo rispetto a loro</span><span class="'+(dc>0?'down':'up')+'">'+(dc>0?'+':'')+dc+'%</span></div>'; }
+    }
+    if ((usaMq || cp) && pr){
       var vb = dc>10 ? ['var(--bad-l)','var(--red)','Chi cerca trova soluzioni simili a meno, e tende a visitare prima quelle.'] :
-               dc>0 ? ['var(--warn-l)','var(--warn)','Leggermente sopra i concorrenti: c\u2019è margine per diventare la scelta più interessante.'] :
+               dc>0 ? ['var(--warn-l)','var(--warn)','Leggermente sopra i concorrenti: c’è margine per diventare la scelta più interessante.'] :
                ['var(--ok-l)','var(--ok)','In linea o sotto i concorrenti: il prezzo lavora a suo favore.'];
       h += '<div class="verdict" style="background:'+vb[0]+';color:'+vb[1]+'">'+vb[2]+'</div>';
     }
+    if (d.concNota) h += '<div class="hint" style="margin-top:10px">'+escBr(d.concNota)+'</div>';
     h += '</div>';
   }
 
@@ -517,7 +541,7 @@ function renderReport(){
   if (num(d.adeg)>0 && pr){
     var pa = Math.round(pr*(1-num(d.adeg)/100)/500)*500;
     var pamq = mq ? pa/mq : 0;
-    var vsConc = cp ? Math.round((pa-cp)/cp*100) : null;
+    var vsConc = (cmq && mq) ? Math.round((pa/mq-cmq)/cmq*100) : (cp ? Math.round((pa-cp)/cp*100) : null);
     h += '<div class="opts">';
     h += '<div class="opt"><div class="opt-h">A · Mantenere il prezzo</div><div class="opt-p">'+eur(pr)+'</div><div class="opt-s">'+(mq?eur(pr/mq)+'/mq':'')+'</div><ul><li>Stima ai ritmi attuali: <b style="color:'+st.c+'">'+st.t+'</b></li><li>Continuiamo con le attività in corso</li></ul></div>';
     h += '<div class="opt alt"><div class="opt-h">B · Adeguare del '+esc(d.adeg)+'%</div><div class="opt-p" style="color:var(--ok)">'+eur(pa)+'</div><div class="opt-s">'+(pamq?eur(pamq)+'/mq':'')+'</div><ul>'+
