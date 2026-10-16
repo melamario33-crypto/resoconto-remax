@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resoconto Settimanale - Mario Mela | RE/MAX Aequitas</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--red:#DC1B27;--blue:#003DA5;--blue-d:#002a73;--blue-l:#EEF2FF;--light:#f4f5f8;--border:#e2e4ea;--text:#1a1a2e;--muted:#6b7280;--ok:#15803d;--ok-l:#DCFCE7;--warn:#B45309;--warn-l:#FEF3C7;--bad-l:#FEE2E2}
+html{-webkit-text-size-adjust:100%}
+body{font-family:'Open Sans',sans-serif;background:var(--light);color:var(--text);min-height:100vh;line-height:1.5}
+h1,h2,h3,.mont{font-family:Montserrat,sans-serif}
+.header{background:var(--blue);position:relative}
+.header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:4px;background:var(--red)}
+.header-inner{max-width:720px;margin:0 auto;padding:1.25rem 1rem 1.4rem;display:flex;align-items:center;gap:1rem}
+.logo-circle{width:52px;height:52px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;font-family:Montserrat,sans-serif;font-weight:800;font-size:12px;line-height:1.1;text-align:center;color:#fff;flex-shrink:0;border:3px solid rgba(255,255,255,.2)}
+.htxt small{display:block;font-family:Montserrat,sans-serif;font-size:10.5px;font-weight:700;color:rgba(255,255,255,.6);letter-spacing:2.2px;text-transform:uppercase}
+.htxt b{display:block;font-family:Montserrat,sans-serif;font-size:19px;font-weight:800;color:#fff}
+.htxt span{font-size:12.5px;color:rgba(255,255,255,.7)}
+.main{max-width:720px;margin:0 auto;padding:1.25rem 1rem 3rem}
+.footer{text-align:center;padding:1.5rem 1rem;font-size:12px;color:var(--muted);border-top:1px solid var(--border);max-width:720px;margin:0 auto}
+.footer strong{color:var(--blue)}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1a1a2e;color:#fff;padding:10px 20px;border-radius:8px;font-size:13px;font-family:Montserrat,sans-serif;font-weight:600;opacity:0;transition:opacity .3s;pointer-events:none;z-index:999;max-width:90vw;text-align:center}
+.toast.show{opacity:1}
+.card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:1.25rem;margin-bottom:1rem}
+
+/* ───────── PANNELLO AGENTE ───────── */
+.admin-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:1rem}
+.admin-top h1{font-size:15px;font-weight:800;color:var(--blue);text-transform:uppercase;letter-spacing:1px}
+.badge{background:var(--blue);color:#fff;font-size:10.5px;padding:3px 9px;border-radius:20px;font-weight:600;font-family:'Open Sans',sans-serif}
+.step{background:#fff;border:1px solid var(--border);border-radius:14px;padding:1.25rem;margin-bottom:1rem}
+.step-h{display:flex;align-items:center;gap:10px;margin-bottom:1rem}
+.step-n{width:26px;height:26px;border-radius:50%;background:var(--blue);color:#fff;font-family:Montserrat,sans-serif;font-weight:800;font-size:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-t{font-family:Montserrat,sans-serif;font-size:13px;font-weight:800;color:var(--text);text-transform:uppercase;letter-spacing:.8px}
+.step-d{font-size:12px;color:var(--muted);margin-top:1px;text-transform:none;letter-spacing:0;font-family:'Open Sans',sans-serif;font-weight:400}
+.r2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.r3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:10px}
+.r1{margin-bottom:10px}
+.fg{display:flex;flex-direction:column;gap:5px;min-width:0}
+.fg label{font-size:10.5px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.8px}
+.fg input,.fg select,.fg textarea{width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:9px;font-size:15px;font-family:'Open Sans',sans-serif;color:var(--text);background:#fff;outline:none}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--blue)}
+.fg textarea{resize:vertical;min-height:78px}
+.hint{font-size:11.5px;color:var(--muted)}
+.btn-sec{padding:10px 14px;border-radius:9px;font-family:Montserrat,sans-serif;font-size:12.5px;font-weight:700;border:1.5px solid var(--blue);background:#fff;color:var(--blue);cursor:pointer}
+.btn-sec:hover{background:var(--blue-l)}
+.btn-gen{display:block;width:100%;padding:15px;border-radius:10px;font-family:Montserrat,sans-serif;font-size:15px;font-weight:800;cursor:pointer;border:none;background:var(--red);color:#fff}
+.btn-gen:disabled{background:#ccc;cursor:not-allowed}
+.chk-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.chk-item{display:flex;align-items:center;gap:8px;padding:9px 11px;border:1.5px solid var(--border);border-radius:9px;cursor:pointer;user-select:none}
+.chk-item input{width:16px;height:16px;accent-color:var(--blue);flex-shrink:0}
+.chk-item span{font-size:13px;line-height:1.3}
+.chk-item:has(input:checked){border-color:var(--blue);background:var(--blue-l)}
+.internal{background:var(--warn-l);border:1.5px dashed #F59E0B;border-radius:10px;padding:10px 12px}
+.internal .fg label{color:#92400E}
+.rub-list{display:flex;flex-direction:column;gap:8px}
+.rub-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1.5px solid var(--border);border-radius:10px;background:var(--light)}
+.rub-info{flex:1;min-width:0;cursor:pointer}
+.rub-n{font-family:Montserrat,sans-serif;font-weight:700;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rub-s{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.btn-load{padding:7px 12px;border-radius:7px;font-family:Montserrat,sans-serif;font-size:12px;font-weight:700;border:none;background:var(--blue);color:#fff;cursor:pointer}
+.btn-del{width:32px;height:32px;border-radius:7px;border:none;background:var(--bad-l);color:var(--red);cursor:pointer;font-size:15px;font-weight:700;flex-shrink:0}
+.rub-empty{text-align:center;padding:.75rem 0;color:var(--muted);font-size:13px}
+.link-box{background:var(--blue-l);border:1.5px solid var(--blue);border-radius:12px;padding:1rem;margin-top:1rem}
+.llbl{font-size:11px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+.lurl{font-size:12px;color:var(--blue);word-break:break-all;margin-bottom:10px;font-family:monospace;background:#fff;border:1px solid #c7d3f5;border-radius:6px;padding:8px 10px}
+.lbtns{display:flex;gap:8px;flex-wrap:wrap}
+.lbtn{padding:10px 14px;border-radius:7px;font-family:Montserrat,sans-serif;font-size:12.5px;font-weight:700;cursor:pointer;border:none}
+.lbtn-cp{background:var(--blue);color:#fff}.lbtn-wa{background:#25D366;color:#fff}.lbtn-pv{background:#fff;color:var(--blue);border:1.5px solid var(--blue)}
+
+/* ───────── RESOCONTO CLIENTE ───────── */
+.hero{background:#fff;border:1px solid var(--border);border-radius:16px;padding:1.25rem;margin-bottom:1rem}
+.hero-hi{font-size:14px;color:var(--muted);margin-bottom:.35rem}
+.hero-t{font-family:Montserrat,sans-serif;font-size:22px;font-weight:800;line-height:1.2}
+.hero-a{font-size:13px;color:var(--muted);margin-top:2px}
+.hero-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.tag{font-family:Montserrat,sans-serif;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;background:var(--light);color:var(--text)}
+.tag-r{background:var(--red);color:#fff}
+.journey{display:flex;margin-top:1.1rem;gap:4px}
+.jstep{flex:1;text-align:center;min-width:0}
+.jbar{height:6px;border-radius:3px;background:var(--border)}
+.jstep.done .jbar{background:#9db4e3}
+.jstep.now .jbar{background:var(--blue)}
+.jlbl{font-family:Montserrat,sans-serif;font-size:10px;font-weight:700;color:var(--muted);margin-top:6px;text-transform:uppercase;letter-spacing:.3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.jstep.now .jlbl{color:var(--blue)}
+.jnow{margin-top:.9rem;font-size:13.5px;background:var(--blue-l);border-radius:10px;padding:10px 12px;color:var(--blue-d)}
+.sec{margin:1.6rem 0 .7rem;display:flex;align-items:baseline;gap:10px}
+.sec-n{font-family:Montserrat,sans-serif;font-size:12px;font-weight:800;color:var(--red)}
+.sec-t{font-family:Montserrat,sans-serif;font-size:17px;font-weight:800;color:var(--text)}
+.sec-q{font-size:12.5px;color:var(--muted);margin:-.45rem 0 .7rem}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:1rem}
+.kpi{background:#fff;border:1px solid var(--border);border-radius:14px;padding:1rem .75rem;text-align:center}
+.kpi-n{font-family:Montserrat,sans-serif;font-size:28px;font-weight:800;line-height:1.1}
+.kpi-l{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-top:3px}
+.kpi-d{font-size:11.5px;font-weight:700;margin-top:4px}
+.up{color:var(--ok)}.down{color:var(--red)}.flat{color:var(--muted)}
+.summary{font-size:15px;line-height:1.6}
+.work li{list-style:none;display:flex;gap:10px;padding:8px 0;border-bottom:1px solid var(--light);font-size:14px}
+.work li:last-child{border-bottom:none}
+.work li::before{content:'';width:18px;height:18px;border-radius:50%;background:var(--ok-l) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5 10.5l3.2 3L15 7' fill='none' stroke='%2315803d' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/14px no-repeat;flex-shrink:0;margin-top:2px}
+.note{background:var(--light);border-radius:10px;padding:11px 13px;font-size:14px;margin-top:10px}
+.tot{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.tot div{background:var(--light);border-radius:10px;padding:10px 12px}
+.tot b{font-family:Montserrat,sans-serif;font-size:20px;display:block}
+.tot span{font-size:11.5px;color:var(--muted)}
+.bars{display:flex;align-items:flex-end;gap:6px;height:90px;margin-top:14px;padding-top:6px}
+.bar{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;min-width:0}
+.bar i{display:block;width:100%;max-width:34px;background:#c7d3f5;border-radius:5px 5px 0 0;min-height:3px}
+.bar.cur i{background:var(--blue)}
+.bar em{font-style:normal;font-size:10.5px;font-weight:700;color:var(--text);margin-bottom:2px}
+.bar small{font-size:9.5px;color:var(--muted);margin-top:4px;white-space:nowrap}
+.bars-l{font-size:11.5px;color:var(--muted);margin-top:4px}
+.irow{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--light);font-size:14px}
+.irow:last-child{border-bottom:none}
+.irow span:first-child{color:var(--muted)}
+.irow span:last-child{font-weight:600;text-align:right}
+.pill{display:inline-block;padding:3px 11px;border-radius:20px;font-family:Montserrat,sans-serif;font-size:12px;font-weight:700}
+.pill-a{background:var(--ok-l);color:var(--ok)}.pill-m{background:var(--warn-l);color:var(--warn)}.pill-b{background:var(--bad-l);color:var(--red)}
+.quote{border-left:4px solid var(--blue);background:var(--light);border-radius:0 10px 10px 0;padding:11px 13px;font-size:14px;margin-top:10px}
+.verdict{margin-top:12px;border-radius:10px;padding:11px 13px;font-size:14px;font-weight:600}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.opt{background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:1rem}
+.opt.alt{border-color:var(--ok);background:#f6fdf8}
+.opt-h{font-family:Montserrat,sans-serif;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:var(--muted)}
+.opt-p{font-family:Montserrat,sans-serif;font-size:21px;font-weight:800;margin:4px 0 2px}
+.opt-s{font-size:12.5px;color:var(--muted)}
+.opt ul{margin-top:10px;padding-left:16px;font-size:13px}
+.opt li{margin-bottom:4px}
+.choice{font-size:13px;color:var(--muted);margin-top:10px;text-align:center}
+.next{background:#fff;border:1px solid var(--border);border-left:4px solid var(--red);border-radius:0 14px 14px 0;padding:1rem 1.1rem;margin-bottom:1rem;font-size:14px}
+.next-h{font-family:Montserrat,sans-serif;font-size:11px;font-weight:800;text-transform:uppercase;color:var(--red);letter-spacing:.6px;margin-bottom:4px}
+.msg{background:var(--blue);border-radius:16px;padding:1.25rem;margin-bottom:1rem;color:#fff}
+.msg-h{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.msg img{width:46px;height:46px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,.35)}
+.msg-n{font-family:Montserrat,sans-serif;font-weight:700;font-size:14px}
+.msg-r{font-size:11.5px;color:rgba(255,255,255,.7)}
+.msg-t{font-size:14.5px;line-height:1.7;color:rgba(255,255,255,.95)}
+.nextrep{text-align:center;font-size:13px;color:var(--muted);margin:1rem 0}
+.nextrep b{color:var(--text)}
+.ag{background:#fff;border:1px solid var(--border);border-radius:16px;padding:1rem;display:flex;align-items:center;gap:12px}
+.ag img{width:52px;height:52px;border-radius:50%;object-fit:cover}
+.ag-n{font-family:Montserrat,sans-serif;font-weight:800;font-size:15px}
+.ag-r{font-size:12px;color:var(--muted)}
+.soc{margin-left:auto;display:flex;gap:6px}
+.soc a{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:var(--blue)}
+.ctas{display:flex;gap:8px;margin-top:10px}
+.cta{flex:1;padding:13px;border-radius:10px;font-family:Montserrat,sans-serif;font-size:13.5px;font-weight:700;text-decoration:none;text-align:center}
+.cta-ph{background:var(--blue);color:#fff}.cta-wa{background:#25D366;color:#fff}
+@media(max-width:540px){
+ .r2,.r3{grid-template-columns:1fr}.chk-grid{grid-template-columns:1fr}
+ .opts{grid-template-columns:1fr}.kpi-n{font-size:24px}.hero-t{font-size:20px}
+ .mrow b{font-size:14px}.jlbl{font-size:8.5px;letter-spacing:0}
+}
+@media print{.header{print-color-adjust:exact;-webkit-print-color-adjust:exact}.ctas,.soc{display:none}}
+</style>
+</head>
+<body>
+<div class="header"><div class="header-inner">
+  <div class="logo-circle">RE/<br>MAX</div>
+  <div class="htxt"><small>RE/MAX Aequitas</small><b>Mario Mela</b><span id="hsub">Resoconto settimanale</span></div>
+</div></div>
+<div class="main" id="app"></div>
+<div class="footer"><strong>Mario Mela</strong> &middot; RE/MAX Aequitas &middot; Tel. 324 1516914</div>
+<div class="toast" id="toast"></div>
+<script>
+var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",n="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+-$",e={};function t(r,o){if(!e[r]){e[r]={};for(var n=0;n<r.length;n++)e[r][r.charAt(n)]=n}return e[r][o]}var i={compressToBase64:function(r){if(null==r)return"";var n=i._compress(r,6,function(r){return o.charAt(r)});switch(n.length%4){default:case 0:return n;case 1:return n+"===";case 2:return n+"==";case 3:return n+"="}},decompressFromBase64:function(r){return null==r?"":""==r?null:i._decompress(r.length,32,function(n){return t(o,r.charAt(n))})},compressToUTF16:function(o){return null==o?"":i._compress(o,15,function(o){return r(o+32)})+" "},decompressFromUTF16:function(r){return null==r?"":""==r?null:i._decompress(r.length,16384,function(o){return r.charCodeAt(o)-32})},compressToUint8Array:function(r){for(var o=i.compress(r),n=new Uint8Array(2*o.length),e=0,t=o.length;e<t;e++){var s=o.charCodeAt(e);n[2*e]=s>>>8,n[2*e+1]=s%256}return n},decompressFromUint8Array:function(o){if(null==o)return i.decompress(o);for(var n=new Array(o.length/2),e=0,t=n.length;e<t;e++)n[e]=256*o[2*e]+o[2*e+1];var s=[];return n.forEach(function(o){s.push(r(o))}),i.decompress(s.join(""))},compressToEncodedURIComponent:function(r){return null==r?"":i._compress(r,6,function(r){return n.charAt(r)})},decompressFromEncodedURIComponent:function(r){return null==r?"":""==r?null:(r=r.replace(/ /g,"+"),i._decompress(r.length,32,function(o){return t(n,r.charAt(o))}))},compress:function(o){return i._compress(o,16,function(o){return r(o)})},_compress:function(r,o,n){if(null==r)return"";var e,t,i,s={},u={},a="",p="",c="",l=2,f=3,h=2,d=[],m=0,v=0;for(i=0;i<r.length;i+=1)if(a=r.charAt(i),Object.prototype.hasOwnProperty.call(s,a)||(s[a]=f++,u[a]=!0),p=c+a,Object.prototype.hasOwnProperty.call(s,p))c=p;else{if(Object.prototype.hasOwnProperty.call(u,c)){if(c.charCodeAt(0)<256){for(e=0;e<h;e++)m<<=1,v==o-1?(v=0,d.push(n(m)),m=0):v++;for(t=c.charCodeAt(0),e=0;e<8;e++)m=m<<1|1&t,v==o-1?(v=0,d.push(n(m)),m=0):v++,t>>=1}else{for(t=1,e=0;e<h;e++)m=m<<1|t,v==o-1?(v=0,d.push(n(m)),m=0):v++,t=0;for(t=c.charCodeAt(0),e=0;e<16;e++)m=m<<1|1&t,v==o-1?(v=0,d.push(n(m)),m=0):v++,t>>=1}0==--l&&(l=Math.pow(2,h),h++),delete u[c]}else for(t=s[c],e=0;e<h;e++)m=m<<1|1&t,v==o-1?(v=0,d.push(n(m)),m=0):v++,t>>=1;0==--l&&(l=Math.pow(2,h),h++),s[p]=f++,c=String(a)}if(""!==c){if(Object.prototype.hasOwnProperty.call(u,c)){if(c.charCodeAt(0)<256){for(e=0;e<h;e++)m<<=1,v==o-1?(v=0,d.push(n(m)),m=0):v++;for(t=c.charCodeAt(0),e=0;e<8;e++)m=m<<1|1&t,v==o-1?(v=0,d.push(n(m)),m=0):v++,t>>=1}else{for(t=1,e=0;e<h;e++)m=m<<1|t,v==o-1?(v=0,d.push(n(m)),m=0):v++,t=0;for(t=c.charCodeAt(0),e=0;e<16;e++)m=m<<1|1&t,v==o-1?(v=0,d.push(n(m)),m=0):v++,t>>=1}0==--l&&(l=Math.pow(2,h),h++),delete u[c]}else for(t=s[c],e=0;e<h;e++)m=m<<1|1&t,v==o-1?(v=0,d.push(n(m)),m=0):v++,t>>=1;0==--l&&(l=Math.pow(2,h),h++)}for(t=2,e=0;e<h;e++)m=m<<1|1&t,v==o-1?(v=0,d.push(n(m)),m=0):v++,t>>=1;for(;;){if(m<<=1,v==o-1){d.push(n(m));break}v++}return d.join("")},decompress:function(r){return null==r?"":""==r?null:i._decompress(r.length,32768,function(o){return r.charCodeAt(o)})},_decompress:function(o,n,e){var t,i,s,u,a,p,c,l=[],f=4,h=4,d=3,m="",v=[],g={val:e(0),position:n,index:1};for(t=0;t<3;t+=1)l[t]=t;for(s=0,a=Math.pow(2,2),p=1;p!=a;)u=g.val&g.position,g.position>>=1,0==g.position&&(g.position=n,g.val=e(g.index++)),s|=(u>0?1:0)*p,p<<=1;switch(s){case 0:for(s=0,a=Math.pow(2,8),p=1;p!=a;)u=g.val&g.position,g.position>>=1,0==g.position&&(g.position=n,g.val=e(g.index++)),s|=(u>0?1:0)*p,p<<=1;c=r(s);break;case 1:for(s=0,a=Math.pow(2,16),p=1;p!=a;)u=g.val&g.position,g.position>>=1,0==g.position&&(g.position=n,g.val=e(g.index++)),s|=(u>0?1:0)*p,p<<=1;c=r(s);break;case 2:return""}for(l[3]=c,i=c,v.push(c);;){if(g.index>o)return"";for(s=0,a=Math.pow(2,d),p=1;p!=a;)u=g.val&g.position,g.position>>=1,0==g.position&&(g.position=n,g.val=e(g.index++)),s|=(u>0?1:0)*p,p<<=1;switch(c=s){case 0:for(s=0,a=Math.pow(2,8),p=1;p!=a;)u=g.val&g.position,g.position>>=1,0==g.position&&(g.position=n,g.val=e(g.index++)),s|=(u>0?1:0)*p,p<<=1;l[h++]=r(s),c=h-1,f--;break;case 1:for(s=0,a=Math.pow(2,16),p=1;p!=a;)u=g.val&g.position,g.position>>=1,0==g.position&&(g.position=n,g.val=e(g.index++)),s|=(u>0?1:0)*p,p<<=1;l[h++]=r(s),c=h-1,f--;break;case 2:return v.join("")}if(0==f&&(f=Math.pow(2,d),d++),l[c])m=l[c];else{if(c!==h)return null;m=i+i.charAt(0)}v.push(m),l[h++]=i+m.charAt(0),i=m,0==--f&&(f=Math.pow(2,d),d++)}}};return i}();"function"==typeof define&&define.amd?define(function(){return LZString}):"undefined"!=typeof module&&null!=module?module.exports=LZString:"undefined"!=typeof angular&&null!=angular&&angular.module("LZString",[]).factory("LZString",function(){return LZString});
+</script>
+<script>
+var PHOTO_DATA_URI = 'data:image/jpeg;base64,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';
+
+var params = new URLSearchParams(window.location.search);
+var isClient = params.has('p');
+var LS_KEY = 'remax_case_v1';
+var BASE_URL = 'https://melamario33-crypto.github.io/resoconto-remax/index.html';
+var FASI = [
+  {k:'lancio', n:'Lancio', d:`L'immobile è online e stiamo raccogliendo i primi contatti.`},
+  {k:'esposizione', n:'Visite', d:`Gli acquirenti stanno visitando: raccogliamo riscontri concreti.`},
+  {k:'verifica', n:'Verifica', d:`Confrontiamo i riscontri con il mercato per decidere come proseguire.`},
+  {k:'trattativa', n:'Trattativa', d:`Ci sono proposte sul tavolo: le valutiamo insieme.`},
+  {k:'rogito', n:'Rogito', d:`Accordo raggiunto: accompagniamo la pratica fino al notaio.`}
+];
+var LAVORI = ['Annuncio aggiornato sui portali','Nuove foto / video','Scheda immobile ottimizzata','Campagna social attiva','Acquirenti in archivio ricontattati','Volantinaggio / cartellonistica','Open house organizzato','Condivisione con altri agenti RE/MAX'];
+
+/* ───────── utilità ───────── */
+function $(id){ return document.getElementById(id); }
+function v(id){ var el=$(id); return el ? String(el.value||'').trim() : ''; }
+function setv(id,val){ var el=$(id); if(el) el.value = (val==null?'':val); }
+function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function escBr(s){ return esc(s).replace(/\n/g,'<br>'); }
+function num(s){ var n=parseFloat(String(s==null?'':s).replace(/\./g,'').replace(',','.').replace(/[^0-9.\-]/g,'')); return isNaN(n)?0:n; }
+function eur(n){ return '€ ' + Math.round(n).toLocaleString('it-IT'); }
+function norm(s){ return String(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/['’`]/g,' ').replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim(); }
+function showToast(msg){ var t=$('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(function(){t.classList.remove('show');},2400); }
+function encode(o){ return LZString.compressToEncodedURIComponent(JSON.stringify(o)); }
+function decode(s){ try { return JSON.parse(LZString.decompressFromEncodedURIComponent(s)); } catch(e){ return null; } }
+function oggiISO(){ var d=new Date(); d.setMinutes(d.getMinutes()-d.getTimezoneOffset()); return d.toISOString().slice(0,10); }
+function addDays(iso,n){ var d=new Date(iso+'T12:00:00'); d.setDate(d.getDate()+n); return d.toISOString().slice(0,10); }
+function dataLunga(iso){ if(!iso) return ''; var d=new Date(iso+'T12:00:00'); return d.toLocaleDateString('it-IT',{weekday:'long',day:'numeric',month:'long'}); }
+function dataBreve(iso){ var d=new Date(iso+'T12:00:00'); return d.toLocaleDateString('it-IT',{day:'numeric',month:'short'}); }
+function giorniDa(iso){ if(!iso) return 0; return Math.max(0, Math.round((new Date(oggiISO()+'T12:00:00') - new Date(iso+'T12:00:00'))/86400000)); }
+
+/* ───────── rubrica ───────── */
+function getCase(){ try { return JSON.parse(localStorage.getItem(LS_KEY)||'[]'); } catch(e){ return []; } }
+function setCase(l){ try { localStorage.setItem(LS_KEY, JSON.stringify(l)); } catch(e){ showToast('Impossibile salvare sul dispositivo'); } }
+function trovaCasa(list){ var n=v('f-nome'), via=v('f-via'); return list.find(function(c){ return c.nome===n && c.via===via; }); }
+function datiStabili(){ return {nome:v('f-nome'), via:v('f-via'), citta:v('f-citta'), cliente:v('f-cliente'), prezzo:v('f-prezzo'), mq:v('f-mq'), inizio:v('f-inizio')}; }
+function salvaCasa(silenzioso){
+  if(!v('f-nome')||!v('f-via')){ if(!silenzioso) alert('Inserisci almeno nome proprietà e via.'); return null; }
+  var list=getCase(), c=trovaCasa(list), d=datiStabili();
+  if (c){ Object.assign(c, d); } else { c = Object.assign({id:Date.now(), storico:[]}, d); list.unshift(c); }
+  setCase(list); renderRubrica(); if(!silenzioso) showToast('Proprietà salvata in rubrica');
+  return c;
+}
+function caricaCasa(id){
+  var c=getCase().find(function(x){return x.id==id;}); if(!c) return;
+  ['nome','via','citta','cliente','prezzo','mq','inizio'].forEach(function(k){ setv('f-'+k, c[k]||''); });
+  ['f-visite','f-richieste','f-views','f-prossime','f-offerte','f-commenti','f-passi','f-lavoro-note','f-lavoro-extra','f-conc-n','f-conc-prezzo','f-adeg','f-commento-agente','f-obiezioni'].forEach(function(id){ setv(id,''); });
+  setv('f-interesse','Medio'); setv('f-trend','auto'); setv('f-fase','auto');
+  document.querySelectorAll('#chk-grid input').forEach(function(cb){ cb.checked=false; });
+  $('result').innerHTML='';
+  aggiornaAuto();
+  renderStorico(c);
+  showToast('Caricata: '+c.nome); window.scrollTo({top:0,behavior:'smooth'});
+}
+function eliminaCasa(id){
+  var list=getCase(), c=list.find(function(x){return x.id==id;}); if(!c) return;
+  if(!confirm('Eliminare "'+c.nome+'" dalla rubrica?')) return;
+  setCase(list.filter(function(x){return x.id!=id;})); renderRubrica(); showToast('Proprietà eliminata');
+}
+function renderRubrica(){
+  var el=$('rubrica'); if(!el) return; var list=getCase();
+  $('rub-count').textContent=list.length;
+  if(!list.length){ el.innerHTML='<div class="rub-empty">Nessuna proprietà salvata. Generando il primo resoconto la proprietà viene salvata in automatico.</div>'; return; }
+  el.innerHTML='<div class="rub-list">'+list.map(function(c){
+    var n=(c.storico||[]).length;
+    return '<div class="rub-item"><div class="rub-info" data-load="'+c.id+'"><div class="rub-n">'+esc(c.nome)+'</div><div class="rub-s">'+esc(c.via)+(c.citta?', '+esc(c.citta):'')+(n?' · '+n+' resoconti':'')+'</div></div>'+
+      '<button class="btn-load" data-load="'+c.id+'">Carica</button><button class="btn-del" data-del="'+c.id+'" title="Elimina">✕</button></div>';
+  }).join('')+'</div>';
+  el.querySelectorAll('[data-load]').forEach(function(b){ b.addEventListener('click', function(){ caricaCasa(b.dataset.load); }); });
+  el.querySelectorAll('[data-del]').forEach(function(b){ b.addEventListener('click', function(){ eliminaCasa(b.dataset.del); }); });
+}
+function renderStorico(c){
+  var el=$('storico-info'); if(!el) return;
+  var s=(c&&c.storico)||[];
+  if(!s.length){ el.textContent='Primo resoconto per questa proprietà.'; return; }
+  var u=s[s.length-1];
+  el.textContent='Ultimo resoconto ('+u.s+'): '+u.vi+' visite, '+u.ri+' richieste. Il confronto con la settimana scorsa si calcola da solo.';
+}
+
+/* ───────── campi automatici ───────── */
+function faseAuto(giorni, offerte){
+  if (offerte>0) return 'trattativa';
+  if (giorni<=14) return 'lancio';
+  if (giorni<=60) return 'esposizione';
+  return 'verifica';
+}
+function aggiornaAuto(){
+  var ini=v('f-inizio'), g=giorniDa(ini);
+  $('f-giorni-lbl').textContent = ini ? (g+' giorni sul mercato · settimana '+(Math.floor(g/7)+1)) : 'Indica la data di inizio incarico';
+  if(!$('f-settimana').dataset.touched){
+    var oggi=oggiISO(), da=addDays(oggi,-6);
+    setv('f-settimana', dataBreve(da)+' – '+dataBreve(oggi));
+  }
+  if(!$('f-prossimo').dataset.touched) setv('f-prossimo', addDays(oggiISO(),7));
+}
+
+/* ───────── PANNELLO AGENTE ───────── */
+function renderAdmin(){
+  var chk = LAVORI.map(function(l){ return '<label class="chk-item"><input type="checkbox" value="'+esc(l)+'"><span>'+esc(l)+'</span></label>'; }).join('');
+  $('app').innerHTML = `
+  <div class="admin-top"><h1>Pannello agente</h1><span class="badge">visibile solo a te</span></div>
+
+  <div class="step">
+    <div class="step-h"><div class="step-t">Rubrica proprietà <span class="badge" id="rub-count">0</span></div></div>
+    <div id="rubrica"></div>
+  </div>
+
+  <div class="step">
+    <div class="step-h"><div class="step-n">1</div><div><div class="step-t">Immobile e venditore</div><div class="step-d">Chi riceve il resoconto e di quale casa parliamo</div></div></div>
+    <div class="r2">
+      <div class="fg"><label>Nome proprietà</label><input id="f-nome" placeholder="es. Trilocale con terrazzo"></div>
+      <div class="fg"><label>Come salutare il venditore</label><input id="f-cliente" placeholder="es. Sig.ra Rossi"></div>
+    </div>
+    <div class="r2">
+      <div class="fg"><label>Via e civico</label><input id="f-via" placeholder="es. Via Roma 12"></div>
+      <div class="fg"><label>Città / frazione</label><input id="f-citta" placeholder="es. Jesi"></div>
+    </div>
+    <div class="r3">
+      <div class="fg"><label>Prezzo (€)</label><input id="f-prezzo" inputmode="numeric" placeholder="es. 189000"></div>
+      <div class="fg"><label>Superficie (mq)</label><input id="f-mq" inputmode="numeric" placeholder="es. 95"></div>
+      <div class="fg"><label>Inizio incarico</label><input type="date" id="f-inizio"></div>
+    </div>
+    <div class="hint" id="f-giorni-lbl"></div>
+  </div>
+
+  <div class="step">
+    <div class="step-h"><div class="step-n">2</div><div><div class="step-t">Settimana e fase</div><div class="step-d">Dà al venditore il senso del percorso: dove siamo, cosa viene dopo</div></div></div>
+    <div class="r3">
+      <div class="fg"><label>Settimana</label><input id="f-settimana"></div>
+      <div class="fg"><label>Fase del percorso</label><select id="f-fase"><option value="auto">Automatica</option><option value="lancio">Lancio</option><option value="esposizione">Visite</option><option value="verifica">Verifica</option><option value="trattativa">Trattativa</option><option value="rogito">Rogito</option></select></div>
+      <div class="fg"><label>Prossimo resoconto</label><input type="date" id="f-prossimo"></div>
+    </div>
+    <div class="hint" id="storico-info">Primo resoconto per questa proprietà.</div>
+  </div>
+
+  <div class="step">
+    <div class="step-h"><div class="step-n">3</div><div><div class="step-t">Lavoro svolto</div><div class="step-d">Risponde al timore n.1: "l'agente sta lavorando per me?"</div></div></div>
+    <div class="chk-grid" id="chk-grid">${chk}</div>
+    <div class="r1"><div class="fg"><label>Altre attività (una per riga)</label><textarea id="f-lavoro-extra" placeholder="es. Rinnovata la pubblicità in evidenza su Idealista"></textarea></div></div>
+    <div class="r1"><div class="fg"><label>Dettaglio per il venditore</label><textarea id="f-lavoro-note" placeholder="es. Ho richiamato 6 acquirenti che cercavano in zona: 2 hanno chiesto una visita."></textarea></div></div>
+  </div>
+
+  <div class="step">
+    <div class="step-h"><div class="step-n">4</div><div><div class="step-t">Riscontri degli acquirenti</div><div class="step-d">I numeri della settimana: il confronto con la precedente è automatico</div></div></div>
+    <div class="r3">
+      <div class="fg"><label>Visite fatte</label><input type="number" min="0" id="f-visite" placeholder="0"></div>
+      <div class="fg"><label>Richieste info</label><input type="number" min="0" id="f-richieste" placeholder="0"></div>
+      <div class="fg"><label>Visualizzazioni</label><input type="number" min="0" id="f-views" placeholder="0"></div>
+    </div>
+    <div class="r3">
+      <div class="fg"><label>Visite in agenda</label><input type="number" min="0" id="f-prossime" placeholder="0"></div>
+      <div class="fg"><label>Offerte ricevute</label><input type="number" min="0" id="f-offerte" placeholder="0"></div>
+      <div class="fg"><label>Interesse</label><select id="f-interesse"><option>Alto</option><option selected>Medio</option><option>Basso</option></select></div>
+    </div>
+    <div class="r1"><div class="fg"><label>Trend visite</label><select id="f-trend"><option value="auto">Automatico (dallo storico)</option><option value="crescita">In crescita</option><option value="stabile">Stabile</option><option value="calo">In calo</option></select></div></div>
+    <div class="r1"><div class="fg"><label>Cosa hanno detto i visitatori</label><textarea id="f-commenti" placeholder="es. Apprezzano la luminosità e il terrazzo; il bagno viene percepito da rifare."></textarea></div></div>
+  </div>
+
+  <div class="step">
+    <div class="step-h"><div class="step-n">5</div><div><div class="step-t">Mercato e concorrenza</div><div class="step-d">Gli immobili con cui gli acquirenti confrontano il suo</div></div></div>
+    <div class="r3">
+      <div class="fg"><label>Annunci simili in zona</label><input type="number" min="0" id="f-conc-n" placeholder="es. 8"></div>
+      <div class="fg"><label>Prezzo medio concorrenti (€)</label><input inputmode="numeric" id="f-conc-prezzo" placeholder="es. 175000"></div>
+      <div class="fg"><label>Adeguamento da proporre (%)</label><input type="number" min="0" max="30" step="0.5" id="f-adeg" placeholder="es. 5"></div>
+    </div>
+    <div class="hint">Se indichi un adeguamento, il venditore vede due opzioni affiancate: mantenere o adeguare. La scelta resta sua.</div>
+  </div>
+
+  <div class="step">
+    <div class="step-h"><div class="step-n">6</div><div><div class="step-t">Il tuo messaggio</div><div class="step-d">Chiudi con una direzione chiara e la tua voce</div></div></div>
+    <div class="r1"><div class="fg"><label>Prossimi passi</label><textarea id="f-passi" placeholder="es. Sabato due visite in agenda. Lunedì le scrivo com'è andata."></textarea></div></div>
+    <div class="r1"><div class="fg"><label>Messaggio personale (con tua foto)</label><textarea id="f-commento-agente" placeholder="es. Le visite di questa settimana sono state di qualità..."></textarea></div></div>
+    <div class="internal"><div class="fg"><label>🔒 Note interne — non entrano nel link</label><textarea id="f-obiezioni" placeholder="Obiezioni, umore del venditore, cosa dire al telefono..."></textarea></div></div>
+  </div>
+
+  <button class="btn-gen" id="genbtn">Genera resoconto da inviare</button>
+  <div id="result"></div>`;
+
+  renderRubrica();
+  $('f-inizio').addEventListener('change', aggiornaAuto);
+  $('f-settimana').addEventListener('input', function(){ this.dataset.touched='1'; });
+  $('f-prossimo').addEventListener('change', function(){ this.dataset.touched='1'; });
+  $('genbtn').addEventListener('click', makeReport);
+  aggiornaAuto();
+}
+
+function makeReport(){
+  if(!v('f-nome')||!v('f-via')){ alert('Inserisci almeno nome proprietà e via.'); return; }
+  var lavoro = Array.from(document.querySelectorAll('#chk-grid input:checked')).map(function(c){return c.value;});
+  v('f-lavoro-extra').split('\n').map(function(s){return s.trim();}).filter(Boolean).forEach(function(s){ lavoro.push(s); });
+  var giorni = giorniDa(v('f-inizio'));
+  var offerte = num(v('f-offerte'));
+  var vi=num(v('f-visite')), ri=num(v('f-richieste')), vw=num(v('f-views'));
+  var casa = salvaCasa(true);
+  var list = getCase(); casa = list.find(function(x){return x.id===casa.id;});
+  var sett = v('f-settimana');
+  var storico = (casa.storico||[]).filter(function(x){ return x.s!==sett; });
+  var prec = storico.length ? storico[storico.length-1] : null;
+  storico.push({s:sett, d:oggiISO(), vi:vi, ri:ri, vw:vw, of:offerte});
+  casa.storico = storico.slice(-26);
+  setCase(list); renderRubrica(); renderStorico(casa);
+
+  var trend = v('f-trend');
+  if (trend==='auto'){ trend = !prec ? '' : (vi>prec.vi ? 'crescita' : vi<prec.vi ? 'calo' : 'stabile'); }
+  var fase = v('f-fase'); if (fase==='auto') fase = faseAuto(giorni, offerte);
+  var totVi=0, totRi=0; casa.storico.forEach(function(x){ totVi+=x.vi; totRi+=x.ri; });
+
+  var data = {
+    ver:2, nome:v('f-nome'), via:v('f-via'), citta:v('f-citta'), cli:v('f-cliente'),
+    prezzo:v('f-prezzo'), mq:v('f-mq'),
+    giorni:v('f-inizio')?giorni:'', settimana:sett, nsett:v('f-inizio')?Math.floor(giorni/7)+1:'', fase:fase, prox:v('f-prossimo'),
+    visite:vi, richieste:ri, views:vw, prossime:num(v('f-prossime')), offerte:offerte,
+    interesse:v('f-interesse'), trend:trend,
+    pv: prec ? [prec.vi, prec.ri, prec.vw] : null,
+    tot: [totVi, totRi, casa.storico.length],
+    st: casa.storico.slice(-8).map(function(x){ return [x.d, x.vi, x.ri]; }),
+    lavoro:lavoro, lavoronote:v('f-lavoro-note'), commenti:v('f-commenti'),
+    concN:v('f-conc-n'), concPrezzo:v('f-conc-prezzo'), adeg:v('f-adeg'),
+    passi:v('f-passi'), commentoAgente:v('f-commento-agente')
+  };
+  var link = BASE_URL + '?p=' + encodeURIComponent(encode(data));
+  var btn=$('genbtn'); btn.disabled=true; btn.textContent='Preparo il link…';
+  $('result').innerHTML='<div class="link-box"><div class="llbl">Accorcio il link…</div></div>';
+  var xhr=new XMLHttpRequest();
+  xhr.open('GET','https://tinyurl.com/api-create.php?url='+encodeURIComponent(link),true);
+  xhr.timeout = 8000;
+  function fine(fl){ btn.disabled=false; btn.textContent='Genera resoconto da inviare'; showResult(fl, link, data); }
+  xhr.onload=function(){ fine((xhr.status===200 && xhr.responseText.indexOf('tinyurl')!==-1) ? xhr.responseText.trim() : link); };
+  xhr.onerror=xhr.ontimeout=function(){ fine(link); };
+  xhr.send();
+}
+function showResult(fl, ll, d){
+  var saluto = d.cli ? 'Buongiorno '+d.cli+',' : 'Buongiorno,';
+  var msg = saluto+'\nle invio il resoconto della settimana per '+d.nome+': trova cosa abbiamo fatto e i riscontri degli acquirenti.\n\n'+fl+'\n\nSe vuole ne parliamo a voce, mi scriva quando le è comodo.\nMario Mela – RE/MAX Aequitas';
+  $('result').innerHTML = '<div class="link-box"><div class="llbl">Resoconto pronto · '+esc(d.settimana)+'</div><div class="lurl">'+esc(fl)+'</div>'+
+    '<div class="lbtns"><button class="lbtn lbtn-cp" id="b-cp">Copia link</button><button class="lbtn lbtn-wa" id="b-wa">Invia su WhatsApp</button><button class="lbtn lbtn-pv" id="b-pv">Anteprima</button></div></div>';
+  $('b-cp').onclick=function(){ navigator.clipboard.writeText(fl).then(function(){ showToast('Link copiato'); }); };
+  $('b-wa').onclick=function(){ window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank'); };
+  $('b-pv').onclick=function(){ window.open(ll,'_blank'); };
+  $('result').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+/* ───────── RESOCONTO CLIENTE ───────── */
+function delta(cur, prev){
+  if (prev==null) return '';
+  var d = cur - prev;
+  if (d>0) return '<div class="kpi-d up">▲ +'+d+' vs sett. scorsa</div>';
+  if (d<0) return '<div class="kpi-d down">▼ '+d+' vs sett. scorsa</div>';
+  return '<div class="kpi-d flat">= come sett. scorsa</div>';
+}
+function stimaTempi(d){
+  var gi=num(d.giorni);
+  if (d.interesse==='Alto' && d.trend==='crescita') return {t:'4–6 settimane', c:'var(--ok)'};
+  if (d.interesse==='Alto') return {t:'6–10 settimane', c:'var(--ok)'};
+  if (d.interesse==='Medio' && d.trend!=='calo' && gi<=120) return {t:'2–4 mesi', c:'var(--warn)'};
+  if (gi>120 || d.interesse==='Basso' || d.trend==='calo') return {t:'oltre 4–6 mesi', c:'var(--red)'};
+  return {t:'2–3 mesi', c:'var(--warn)'};
+}
+function riassunto(d){
+  var vi=num(d.visite), ri=num(d.richieste), of=num(d.offerte), p=[];
+  var a = 'Questa settimana l’immobile ha ricevuto <b>'+ri+' richieste</b> e <b>'+vi+' '+(vi===1?'visita':'visite')+'</b>';
+  if (num(d.prossime)) a += ', con <b>'+num(d.prossime)+' '+(num(d.prossime)===1?'visita':'visite')+' già in agenda</b>';
+  p.push(a+'.');
+  if (of) p.push('Abbiamo <b>'+of+' '+(of===1?'proposta':'proposte')+'</b> da valutare insieme.');
+  if (d.trend==='crescita') p.push('L’interesse è in crescita rispetto alla settimana scorsa.');
+  else if (d.trend==='calo') p.push('L’interesse è in calo rispetto alla settimana scorsa: più sotto trova i dati per capire perché.');
+  return p.join(' ');
+}
+function renderReport(){
+  var d = decode(params.get('p'));
+  if(!d){ $('app').innerHTML='<p style="padding:2rem;text-align:center;color:var(--muted)">Resoconto non valido o link incompleto.</p>'; return; }
+  var h='', n=0;
+  $('hsub').textContent = 'Resoconto settimanale'+(d.settimana?' · '+d.settimana:'');
+
+  /* HERO + percorso */
+  var fi = FASI.findIndex(function(f){return f.k===d.fase;});
+  h += '<div class="hero">';
+  if (d.cli) h += '<div class="hero-hi">Buongiorno '+esc(d.cli)+', ecco come sta andando.</div>';
+  h += '<div class="hero-t">'+esc(d.nome)+'</div><div class="hero-a">'+esc(d.via)+(d.citta?', '+esc(d.citta):'')+'</div>';
+  h += '<div class="hero-tags">'+(d.nsett?'<span class="tag tag-r">Settimana '+esc(d.nsett)+'</span>':'')+(d.settimana?'<span class="tag">'+esc(d.settimana)+'</span>':'')+(d.giorni!==''&&d.giorni!=null?'<span class="tag">'+esc(d.giorni)+' giorni sul mercato</span>':'')+'</div>';
+  if (fi>=0){
+    h += '<div class="journey">'+FASI.map(function(f,i){ return '<div class="jstep '+(i<fi?'done':i===fi?'now':'')+'"><div class="jbar"></div><div class="jlbl">'+f.n+'</div></div>'; }).join('')+'</div>';
+    h += '<div class="jnow"><b>Siamo nella fase "'+FASI[fi].n+'".</b> '+FASI[fi].d+'</div>';
+  }
+  h += '</div>';
+
+  /* 1 · In breve */
+  h += '<div class="sec"><span class="sec-n">0'+(++n)+'</span><span class="sec-t">La settimana in breve</span></div>';
+  var pv = d.pv || null;
+  h += '<div class="kpis">'+
+    '<div class="kpi"><div class="kpi-n">'+num(d.richieste)+'</div><div class="kpi-l">Richieste</div>'+delta(num(d.richieste), pv?pv[1]:null)+'</div>'+
+    '<div class="kpi"><div class="kpi-n">'+num(d.visite)+'</div><div class="kpi-l">Visite</div>'+delta(num(d.visite), pv?pv[0]:null)+'</div>'+
+    '<div class="kpi"><div class="kpi-n">'+num(d.views)+'</div><div class="kpi-l">Visualizzazioni</div>'+delta(num(d.views), pv?pv[2]:null)+'</div></div>';
+  h += '<div class="card summary">'+riassunto(d)+'</div>';
+
+  /* 2 · Cosa ho fatto */
+  if ((d.lavoro&&d.lavoro.length) || d.lavoronote || (d.st&&d.st.length>1)){
+    h += '<div class="sec"><span class="sec-n">0'+(++n)+'</span><span class="sec-t">Cosa abbiamo fatto per lei</span></div>';
+    h += '<div class="card">';
+    if (d.lavoro&&d.lavoro.length) h += '<ul class="work">'+d.lavoro.map(function(l){return '<li>'+esc(l)+'</li>';}).join('')+'</ul>';
+    if (d.lavoronote) h += '<div class="note">'+escBr(d.lavoronote)+'</div>';
+    if (d.tot && d.tot[2]>1){
+      h += '<div class="tot"><div><b>'+d.tot[1]+'</b><span>richieste dall’inizio</span></div><div><b>'+d.tot[0]+'</b><span>visite dall’inizio</span></div><div><b>'+d.tot[2]+'</b><span>resoconti inviati</span></div></div>';
+    }
+    if (d.st && d.st.length>1){
+      var mx = Math.max.apply(null, d.st.map(function(x){return Math.max(x[1],1);}));
+      h += '<div class="bars">'+d.st.map(function(x,i){ return '<div class="bar'+(i===d.st.length-1?' cur':'')+'"><em>'+x[1]+'</em><i style="height:'+Math.max(4,Math.round(x[1]/mx*70))+'px"></i><small>'+esc(dataBreve(x[0]))+'</small></div>'; }).join('')+'</div><div class="bars-l">Visite per settimana</div>';
+    }
+    h += '</div>';
+  }
+
+  /* 3 · Cosa dicono gli acquirenti */
+  h += '<div class="sec"><span class="sec-n">0'+(++n)+'</span><span class="sec-t">Cosa dicono gli acquirenti</span></div>';
+  h += '<div class="card">';
+  var pc = d.interesse==='Alto'?'pill-a':d.interesse==='Basso'?'pill-b':'pill-m';
+  h += '<div class="irow"><span>Interesse percepito</span><span class="pill '+pc+'">'+esc(d.interesse||'Medio')+'</span></div>';
+  if (d.trend){ var tl=d.trend==='crescita'?'<span class="up">In crescita</span>':d.trend==='calo'?'<span class="down">In calo</span>':'Stabile'; h += '<div class="irow"><span>Andamento rispetto alla settimana scorsa</span><span>'+tl+'</span></div>'; }
+  h += '<div class="irow"><span>Visite già in agenda</span><span>'+num(d.prossime)+'</span></div>';
+  if (num(d.offerte)) h += '<div class="irow"><span>Proposte ricevute</span><span>'+num(d.offerte)+'</span></div>';
+  if (d.commenti) h += '<div class="quote">'+escBr(d.commenti)+'</div>';
+  h += '</div>';
+
+  /* 4 · Concorrenza */
+  var pr=num(d.prezzo), mq=num(d.mq), cp=num(d.concPrezzo);
+  if (d.concN || cp){
+    h += '<div class="sec"><span class="sec-n">0'+(++n)+'</span><span class="sec-t">Con chi la stiamo confrontando</span></div>';
+    h += '<div class="sec-q">Gli immobili simili in vendita che gli acquirenti stanno visitando insieme al suo.</div>';
+    h += '<div class="card">';
+    if (d.concN) h += '<div class="irow"><span>Immobili simili in vendita in zona</span><span>'+esc(d.concN)+'</span></div>';
+    if (cp) h += '<div class="irow"><span>Prezzo medio richiesto dai concorrenti</span><span>'+eur(cp)+'</span></div>';
+    if (cp && pr){
+      var dc=Math.round((pr-cp)/cp*100);
+      h += '<div class="irow"><span>Il suo prezzo rispetto a loro</span><span class="'+(dc>0?'down':'up')+'">'+(dc>0?'+':'')+dc+'%</span></div>';
+      var vb = dc>10 ? ['var(--bad-l)','var(--red)','Chi cerca trova soluzioni simili a meno, e tende a visitare prima quelle.'] :
+               dc>0 ? ['var(--warn-l)','var(--warn)','Leggermente sopra i concorrenti: c\u2019è margine per diventare la scelta più interessante.'] :
+               ['var(--ok-l)','var(--ok)','In linea o sotto i concorrenti: il prezzo lavora a suo favore.'];
+      h += '<div class="verdict" style="background:'+vb[0]+';color:'+vb[1]+'">'+vb[2]+'</div>';
+    }
+    h += '</div>';
+  }
+
+  /* 5 · Le opzioni */
+  var st = stimaTempi(d);
+  h += '<div class="sec"><span class="sec-n">0'+(++n)+'</span><span class="sec-t">'+(num(d.adeg)>0?'Le due strade possibili':'Tempi attesi')+'</span></div>';
+  if (num(d.adeg)>0 && pr){
+    var pa = Math.round(pr*(1-num(d.adeg)/100)/500)*500;
+    var pamq = mq ? pa/mq : 0;
+    var vsConc = cp ? Math.round((pa-cp)/cp*100) : null;
+    h += '<div class="opts">';
+    h += '<div class="opt"><div class="opt-h">A · Mantenere il prezzo</div><div class="opt-p">'+eur(pr)+'</div><div class="opt-s">'+(mq?eur(pr/mq)+'/mq':'')+'</div><ul><li>Stima ai ritmi attuali: <b style="color:'+st.c+'">'+st.t+'</b></li><li>Continuiamo con le attività in corso</li></ul></div>';
+    h += '<div class="opt alt"><div class="opt-h">B · Adeguare del '+esc(d.adeg)+'%</div><div class="opt-p" style="color:var(--ok)">'+eur(pa)+'</div><div class="opt-s">'+(pamq?eur(pamq)+'/mq':'')+'</div><ul>'+
+      (vsConc!==null?'<li>'+(vsConc<=0?'In linea con i concorrenti':'Si avvicina ai concorrenti ('+(vsConc>0?'+':'')+vsConc+'%)')+'</li>':'')+
+      '<li>Compare nelle ricerche di chi ha un budget fino a '+eur(Math.ceil(pa/10000)*10000)+'</li><li>Più visite qualificate, trattativa da una posizione più forte</li></ul></div>';
+    h += '</div><div class="choice">La decisione è sua: qui trova i dati per prenderla con serenità.</div>';
+  } else {
+    h += '<div class="card" style="display:flex;align-items:center;gap:12px"><div style="font-size:26px">⏱️</div><div><div class="hint" style="text-transform:uppercase;letter-spacing:.6px;font-weight:700">Stima ai ritmi attuali</div><div class="mont" style="font-size:18px;font-weight:800;color:'+st.c+'">'+st.t+'</div></div></div>';
+  }
+
+  /* 6 · Prossimi passi + messaggio */
+  if (d.passi) h += '<div class="next" style="margin-top:1.25rem"><div class="next-h">Prossimi passi</div>'+escBr(d.passi)+'</div>';
+  if (d.commentoAgente){
+    h += '<div class="msg"><div class="msg-h"><img src="'+PHOTO_DATA_URI+'" alt="Mario Mela"><div><div class="msg-n">Mario Mela</div><div class="msg-r">Il suo agente · RE/MAX Aequitas</div></div></div><div class="msg-t">'+escBr(d.commentoAgente)+'</div></div>';
+  }
+  if (d.prox) h += '<div class="nextrep">Prossimo resoconto: <b>'+esc(dataLunga(d.prox))+'</b>. Per qualsiasi dubbio, mi scriva prima.</div>';
+
+  h += '<div class="ag"><img src="'+PHOTO_DATA_URI+'" alt="Mario Mela"><div><div class="ag-n">Mario Mela</div><div class="ag-r">Agente immobiliare · RE/MAX Aequitas</div></div>'+
+    '<div class="soc"><a href="https://www.instagram.com/melamario_remax/" target="_blank" rel="noopener" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 3.3.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-3.3-.1-4.8-1.7-4.9-4.9C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8C2.4 3.9 3.9 2.4 7.2 2.3 8.4 2.2 8.8 2.2 12 2.2zM12 5.8a6.2 6.2 0 100 12.4 6.2 6.2 0 000-12.4zm0 10.2a4 4 0 110-8 4 4 0 010 8zm6.4-11.8a1.4 1.4 0 100 2.9 1.4 1.4 0 000-2.9z"/></svg></a>'+
+    '<a href="https://www.facebook.com/melamarioremax" target="_blank" rel="noopener" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M24 12.07C24 5.44 18.63.07 12 .07S0 5.44 0 12.07c0 5.99 4.39 10.95 10.13 11.85v-8.38H7.08v-3.47h3.05V9.43c0-3.01 1.79-4.67 4.53-4.67 1.31 0 2.69.24 2.69.24v2.95h-1.51c-1.49 0-1.96.93-1.96 1.87v2.25h3.33l-.53 3.47h-2.8v8.38C19.61 23.03 24 18.06 24 12.07z"/></svg></a></div></div>';
+  h += '<div class="ctas"><a class="cta cta-ph" href="tel:+393241516914">📞 Chiama Mario</a><a class="cta cta-wa" href="https://wa.me/393241516914" target="_blank" rel="noopener">Scrivi su WhatsApp</a></div>';
+  $('app').innerHTML = h;
+}
+
+if (isClient) { renderReport(); } else { renderAdmin(); }
+</script>
+</body>
+</html>
