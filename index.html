@@ -150,6 +150,31 @@ a.rk:hover{border-color:var(--blue)}
 .tl-a{display:block;font-weight:500;font-size:11.5px;color:var(--blue);text-decoration:none;margin-top:1px}
 .costo{margin-top:14px;font-size:14px;line-height:1.6;border:1.5px solid var(--red);border-radius:10px;padding:11px 13px;color:var(--text)}
 .costo span{display:block;font-family:Montserrat,sans-serif;font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--red);margin-bottom:3px}
+.mk-sub{font-family:Montserrat,sans-serif;font-size:13.5px;font-weight:800;color:var(--blue);margin:2px 0 10px}
+.mk-sep{border-top:1px solid var(--border);margin:18px 0 14px}
+.mk-src{font-size:10.5px;color:var(--muted);margin-top:8px}
+.mk-msg{font-size:14px;line-height:1.55;margin-top:10px}
+.cbars{display:flex;align-items:flex-end;gap:8px;height:120px;margin-top:8px}
+.cbar{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;min-width:0}
+.cbar i{display:block;width:100%;max-width:46px;background:#c7d3f5;border-radius:5px 5px 0 0;min-height:3px}
+.cbar em{font-style:normal;font-size:12px;font-weight:700;margin-bottom:3px}
+.cbar small{font-size:10px;color:var(--muted);margin-top:5px;text-align:center;line-height:1.2}
+.cbar.io i{background:var(--red)}.cbar.io em,.cbar.io small{color:var(--red);font-weight:700}
+.gbars{display:flex;align-items:flex-end;gap:10px;height:110px;margin-top:8px}
+.gbar{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;min-width:0}
+.gbar .gg{display:flex;align-items:flex-end;gap:3px;height:100%;width:100%;justify-content:center}
+.gbar .gc{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;width:45%;max-width:22px}
+.gbar .gc i{display:block;width:100%;border-radius:4px 4px 0 0;min-height:3px}
+.gbar .gc em{font-style:normal;font-size:10px;font-weight:700;margin-bottom:2px}
+.gbar small{font-size:9.5px;color:var(--muted);margin-top:5px;white-space:nowrap}
+.gleg{display:flex;gap:14px;font-size:11.5px;color:var(--muted);margin-top:8px}
+.gleg b{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+.sc{display:flex;flex-direction:column;gap:8px;margin-top:6px}
+.sc-r{display:flex;align-items:center;gap:10px;font-size:13px}
+.sc-r span{width:120px;flex-shrink:0}
+.sc-r .sc-t{flex:1;height:22px;background:var(--light);border-radius:6px;overflow:hidden;position:relative}
+.sc-r .sc-t i{display:block;height:100%;border-radius:6px}
+.sc-r .sc-t b{position:absolute;left:8px;top:2px;font-size:12px}
 .tl-txt{margin-top:14px;font-size:14px;line-height:1.6;background:var(--warn-l);color:#7c4a03;border-radius:10px;padding:11px 13px}
 .acts{display:flex;flex-direction:column;gap:10px}
 .act{display:flex;align-items:center;gap:12px}
@@ -547,9 +572,13 @@ function renderReport(){
     if (d.tot && d.tot[2]>1){
       h += '<div class="tot">'+(d.tot[1]!=null?'<div><b>'+d.tot[1]+'</b><span>richieste dall’inizio</span></div>':'')+'<div><b>'+d.tot[0]+'</b><span>visite dall’inizio</span></div><div><b>'+d.tot[2]+'</b><span>resoconti inviati</span></div></div>';
     }
-    if (d.st && d.st.length>1){
-      var mx = Math.max.apply(null, d.st.map(function(x){return Math.max(x[1],1);}));
-      h += '<div class="bars">'+d.st.map(function(x,i){ return '<div class="bar'+(i===d.st.length-1?' cur':'')+'"><em>'+x[1]+'</em><i style="height:'+Math.max(4,Math.round(x[1]/mx*70))+'px"></i><small>'+esc(dataBreve(x[0]))+'</small></div>'; }).join('')+'</div><div class="bars-l">Visite per settimana</div>';
+    if (d.st && d.st.length>1 && d.st.some(function(x){return (x[1]||0)>0 || (x[2]||0)>0;})){
+      var conRi = d.st.some(function(x){return x[2]!=null;});
+      var mx = Math.max.apply(null, d.st.map(function(x){return Math.max(x[1]||0, x[2]||0, 1);}));
+      function col(v,c){ if(v==null) return '<div class="gc"></div>'; return '<div class="gc"><em>'+v+'</em><i style="background:'+c+';height:'+Math.max(3,Math.round(v/mx*80))+'px"></i></div>'; }
+      h += '<div class="mk-sub" style="margin-top:16px">Il nostro lavoro nel tempo</div>';
+      h += '<div class="gbars">'+d.st.map(function(x){ return '<div class="gbar"><div class="gg">'+(conRi?col(x[2],'#c7d3f5'):'')+col(x[1],'var(--blue)')+'</div><small>'+esc(dataBreve(x[0]))+'</small></div>'; }).join('')+'</div>';
+      h += '<div class="gleg">'+(conRi?'<span><b style="background:#c7d3f5"></b>Richieste</span>':'')+'<span><b style="background:var(--blue)"></b>Visite</span></div>';
     }
     h += '</div>';
   }
@@ -565,6 +594,49 @@ function renderReport(){
   if (num(d.offerte)) h += '<div class="irow"><span>Proposte ricevute</span><span>'+num(d.offerte)+'</span></div>';
   if (d.commenti) h += '<div class="quote">'+escBr(d.commenti)+'</div>';
   h += '</div>';
+
+  /* 4 · Il mercato nella zona: dati di vendita reali, nessun annuncio di altri */
+  var mk = d.mk || null;
+  if (mk && (mk.tm || (mk.cv&&mk.cv.length) || mk.sc)){
+    h += '<div class="sec"><span class="sec-n">0'+(++n)+'</span><span class="sec-t">Il mercato nella zona</span></div>';
+    h += '<div class="sec-q">Dati ufficiali sulle vendite effettivamente concluse.</div>';
+    h += '<div class="card">';
+    var blocchi = 0;
+    function mesiDa(g){ var m=g/30.4; return m<1 ? Math.max(1,Math.round(g/7))+' settimane' : (Math.round(m*10)/10).toString().replace('.',',').replace(/,0$/,'')+' mesi'; }
+    var gioM = has(d.giorni) ? num(d.giorni) : null;
+    if (mk.tm && gioM!=null){
+      blocchi++;
+      var mxT = Math.max(gioM, mk.tm);
+      h += '<div class="mk-sub">Quanto tempo serve per vendere</div><div class="tl">';
+      h += '<div class="tl-r tl-io"><div class="tl-h"><b>Questo immobile</b><span>'+mesiDa(gioM)+'</span></div><div class="tl-t"><i style="width:'+Math.max(6,Math.round(gioM/mxT*100))+'%"></i></div></div>';
+      h += '<div class="tl-r"><div class="tl-h"><b>Tempo medio per vendere una casa</b><span>'+mesiDa(mk.tm)+'</span></div><div class="tl-t"><i style="width:'+Math.max(6,Math.round(mk.tm/mxT*100))+'%"></i></div></div>';
+      h += '</div>';
+      if (num(d.costoMese)){ var mesi=Math.max(1,Math.floor((gioM+2)/30.4)); h += '<div class="costo"><span>Il costo dell’attesa</span>Ogni mese in vendita costa circa <b>'+eur(num(d.costoMese))+'</b>'+(d.costoVoci?' tra '+esc(d.costoVoci):'')+'. Dall’inizio dell’incarico: '+mesi+(mesi===1?' mese':' mesi')+' → circa <b>'+eur(num(d.costoMese)*mesi)+'</b>.</div>'; }
+      if (d.fraseTempo) h += '<div class="tl-txt">'+escBr(d.fraseTempo)+'</div>';
+      if (mk.tmF) h += '<div class="mk-src">Fonte: '+esc(mk.tmF)+'</div>';
+    }
+    if (mk.cv && mk.cv.length){
+      if (blocchi++) h += '<div class="mk-sep"></div>';
+      var mxC = Math.max.apply(null, mk.cv.map(function(c){return c[1]||0;})) || 1;
+      h += '<div class="mk-sub">Le abitazioni vendute a '+esc(mk.cvC||'')+(mk.cvA?' nel '+esc(mk.cvA):'')+'</div>';
+      h += '<div class="cbars">'+mk.cv.map(function(c,i){ var v=Math.round(c[1]||0); return '<div class="cbar'+(i===mk.cvI?' io':'')+'"><em>'+v+'</em><i style="height:'+Math.max(3,Math.round((c[1]||0)/mxC*90))+'px"></i><small>'+esc(c[0])+'</small></div>'; }).join('')+'</div>';
+      if (mk.cvI!=null && mk.cv[mk.cvI]){
+        var vI=Math.round(mk.cv[mk.cvI][1]||0), freq = vI>=12 ? 'circa '+Math.round(vI/12)+' al mese' : vI>0 ? (Math.round(12/vI)<=1 ? 'quasi una al mese' : 'circa una ogni '+Math.round(12/vI)+' mesi') : 'nessuna nell’anno';
+        h += '<div class="mk-msg">Nella fascia di questo immobile (<b>'+esc(mk.cv[mk.cvI][0])+'</b>) le vendite sono state <b>'+vI+'</b> in un anno: '+freq+'. Chi compra c’è.</div>';
+      }
+      if (mk.cvF) h += '<div class="mk-src">Fonte: '+esc(mk.cvF)+'</div>';
+    }
+    if (mk.sc){
+      if (blocchi++) h += '<div class="mk-sep"></div>';
+      var sc = Number(mk.sc), scS = String(mk.sc).replace('.',',');
+      h += '<div class="mk-sub">La trattativa</div><div class="sc">';
+      h += '<div class="sc-r"><span>Prezzo richiesto</span><div class="sc-t"><i style="width:100%;background:#c7d3f5"></i><b>100</b></div></div>';
+      h += '<div class="sc-r"><span>Prezzo di vendita</span><div class="sc-t"><i style="width:'+(100-sc)+'%;background:var(--blue)"></i><b style="color:#fff">'+String(Math.round((100-sc)*10)/10).replace('.',',')+'</b></div></div></div>';
+      h += '<div class="mk-msg">In media le case si vendono a un prezzo più basso del <b>'+scS+'%</b> rispetto a quello richiesto all’inizio.</div>';
+      if (mk.scF) h += '<div class="mk-src">Fonte: '+esc(mk.scF)+'</div>';
+    }
+    h += '</div>';
+  }
 
   /* 4 · Il tempo sul mercato: solo durata, niente prezzi né indirizzi */
   var cl=(d.conc||[]);
